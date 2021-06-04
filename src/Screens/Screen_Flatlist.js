@@ -87,7 +87,7 @@ export class Screen_Flatlist extends Component {
                     </View>
                 </Modal>
                 </View>
-                <View style={styles.header}>
+                <View style={styles.footer}>
                     <Text>David Bastidas, Pedro Presaras, Marcos Estrada</Text>
                 </View>
             </View> 
@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
     },
     textModal: {
         fontSize: 20
+    },
+    listContainer: {
+        flex: 1,
     },
     modalContainer: {       
         flex:1,
@@ -127,8 +130,11 @@ const styles = StyleSheet.create({
         elevation:10
     },
     header:{
-        flex:1,
-        backgroundColor:"blue"
+        height: '10%',
+        width: '100%',
+        backgroundColor:"blue",
+        justifyContent:'center',
+        alignItems: 'center'
     },
     container: {
         flex:1,
@@ -159,6 +165,10 @@ const styles = StyleSheet.create({
     image: {
         width: 50,
         height: 50
-    }
+    },
+    footer:{
+        height: 100,
+    },
+    
 })
 
