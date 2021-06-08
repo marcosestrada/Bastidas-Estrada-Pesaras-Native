@@ -47,6 +47,7 @@ export class Screen_Flatlist extends Component {
   render() {
     return (
             <View style={styles.container}>
+                <Text> Screen 1 </Text>
                 <View style={styles.header}>
                     <Text>Tus Contactos</Text>
                 </View>
