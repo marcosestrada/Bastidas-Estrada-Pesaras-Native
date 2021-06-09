@@ -1,5 +1,5 @@
-import React, { Component} from "react"; 
-import {Screen_Flatlist} from "./src/Screens/Screen_Flatlist";
+import { Component} from "react"; 
+import {Menu} from "./src/Screens/Menu";
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,9 +11,9 @@ class App extends Component {
   render() {
     return (
       <NavigationContainer>
-  
-          <Screen_Flatlist />
-       
+      <Stack.Navigator>
+        <Stack.Screen name="Menu" component={Menu} />
+      </Stack.Navigator>
       </NavigationContainer>
       
     )
