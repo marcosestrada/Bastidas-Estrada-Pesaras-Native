@@ -26,6 +26,9 @@ export class Screen_Flatlist extends Component {
       .then( results => {
         this.setState({contactos:results, activity:false});
       })
+      const unsuscribe = this.props.navigation.addListener("focus", () => {
+          Alert.alert("focus");
+      })
   }
 
   showModal(item) {

@@ -1,5 +1,5 @@
 import { Component} from "react"; 
-import {Menu} from "./src/Screens/Menu";
+import {Screen_Menu} from "./src/Screens/Screen_Menu";
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Menu" component={Menu} />
+        <Stack.Screen name="Menu" component={Screen_Menu} />
       </Stack.Navigator>
       </NavigationContainer>
       
