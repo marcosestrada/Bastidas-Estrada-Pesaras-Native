@@ -4,8 +4,8 @@ import {
     View, 
     StyleSheet,  
     Modal,
+    FontAwesomeIcon,
 } from 'react-native';
-
 import { FontAwesomeIcon } from 'react-native-fontawesome';
 
 
