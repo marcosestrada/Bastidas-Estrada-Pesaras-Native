@@ -6,6 +6,8 @@ import {
     Modal,
 } from 'react-native';
 
+import { FontAwesomeIcon } from 'react-native-fontawesome';
+
 
 export class Menu extends Component {
     constructor() {
@@ -20,12 +22,24 @@ export class Menu extends Component {
       return (
         <View style={{flex:1}}>
             <View style={{flex:1, flexDirection: 'row'}}>
-                <View style={styles.caja}><Text style={styles.letra}>Importar tarjetas</Text></View>
-                <View style={styles.caja}><Text style={styles.letra}>Ver Tarjetas Importadas</Text></View>
+                <View style={styles.caja}>
+                    <Text style={styles.letra}>Importar tarjetas</Text> 
+                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-down-to-line" />
+                </View>
+                <View style={styles.caja}>
+                    <Text style={styles.letra}>Ver Tarjetas Importadas</Text>
+                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-address-card" />               
+                </View>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
-                <View style={styles.caja}><Text style={styles.letra}>Modificar tarjetas</Text></View>
-                <View style={styles.caja}><Text style={styles.letra}>Papelera de reciclaje</Text></View>
+                <View style={styles.caja}>
+                    <Text style={styles.letra}>Modificar tarjetas</Text>
+                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-user-pen" />
+                </View>
+                <View style={styles.caja}>
+                    <Text style={styles.letra}>Papelera de reciclaje</Text>
+                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-trash" />
+                </View>
             </View>
 
                 <Modal visible={this.state.showModal}
@@ -106,4 +120,7 @@ const styles = StyleSheet.create({
     textModal: {
         fontSize: 20
     },
+    iconStyle: {
+        fontSize: 15
+    }
 });
