@@ -4,12 +4,12 @@ import {
     View, 
     StyleSheet,  
     Modal,
-    FontAwesomeIcon,
+    TouchableOpacity,
 } from 'react-native';
-import { FontAwesomeIcon } from 'react-native-fontawesome';
+// import { FontAwesomeIcon } from 'react-native-fontawesome';
 
 
-export class Menu extends Component {
+export class Screen_Menu extends Component {
     constructor() {
         super();
         this.state = {
@@ -24,21 +24,21 @@ export class Menu extends Component {
             <View style={{flex:1, flexDirection: 'row'}}>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Importar tarjetas</Text> 
-                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-down-to-line" />
+                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-down-to-line" /> */}
                 </View>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Ver Tarjetas Importadas</Text>
-                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-address-card" />               
+                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-address-card" />                */}
                 </View>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Modificar tarjetas</Text>
-                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-user-pen" />
+                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-user-pen" /> */}
                 </View>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Papelera de reciclaje</Text>
-                    <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-trash" />
+                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-trash" /> */}
                 </View>
             </View>
 
@@ -49,15 +49,15 @@ export class Menu extends Component {
                         <View style={styles.modal}>
                             
                             <Text style={styles.textModal}>David Bastidas, Marcos Estrada, Pedro Presaras</Text>
-                            <Text style={styles.closeButton} onPress={() => this.setState({showModal:!this.state.showModal})}>X</Text>
+                            <Text style={styles.closeButton} onPress={() => this.setState({showModal: !this.state.showModal})}>X</Text>
                         
                         </View>
                     </View>
                 </Modal>
 
-                <View style={{flex: 1, flexDirection: 'row'}} onPress={() => this.setState({showModal: !this.state.showModal})}>
+                <TouchableOpacity opacity={ 0.8 } style={{flex: 1, flexDirection: 'row'}} onPress={() => this.setState({showModal: !this.state.showModal})}>
                     <View style={styles.caja}><Text style={styles.letraFooter}>Acerca de ...</Text></View>
-                </View>
+                </TouchableOpacity>
         </View>
       )
     }
