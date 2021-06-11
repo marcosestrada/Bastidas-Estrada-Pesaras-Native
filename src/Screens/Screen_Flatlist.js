@@ -13,7 +13,6 @@ export class Screen_Flatlist extends Component {
       }
   }
   
-  
   keyExtractor= (item, idx) => idx.toString();
 
    cargarDatos() {

@@ -6,7 +6,6 @@ import {
     Modal,
     TouchableOpacity,
 } from 'react-native';
-
 export class Screen_Menu extends Component {
     constructor() {
         super();
