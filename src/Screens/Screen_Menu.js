@@ -6,6 +6,12 @@ import {
     Modal,
     TouchableOpacity,
 } from 'react-native';
+
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+
 export class Screen_Menu extends Component {
     constructor() {
         super();
@@ -21,21 +27,21 @@ export class Screen_Menu extends Component {
             <View style={{flex:1, flexDirection: 'row'}}>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Importar tarjetas</Text> 
-                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-down-to-line" /> */}
+                    <AntDesign style={styles.iconStyle} name="download" />
                 </View>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Ver Tarjetas Importadas</Text>
-                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-address-card" />                */}
+                    <FontAwesome5 style={styles.iconStyle} name="address-card" />
                 </View>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Modificar tarjetas</Text>
-                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-user-pen" /> */}
+                    <FontAwesome5 style={styles.iconStyle} name="user-edit"/>
                 </View>
                 <View style={styles.caja}>
                     <Text style={styles.letra}>Papelera de reciclaje</Text>
-                    {/* <FontAwesomeIcon style={styles.iconStyle} icon="fa-solid fa-trash" /> */}
+                    <Fontisto style={styles.iconStyle} name="trash" />
                 </View>
             </View>
 
@@ -54,7 +60,9 @@ export class Screen_Menu extends Component {
                 </Modal>
 
                 <TouchableOpacity opacity={0.8} style={{flex: 1, flexDirection: 'row'}} onPress={() => this.setState({showModal: !this.state.showModal})}>
-                    <View style={styles.caja}><Text style={styles.letraFooter}>Acerca de ...</Text></View>
+                    <View style={styles.caja}><Text style={styles.letraFooter}>Acerca de ...</Text>
+                        <Entypo name="info" style={styles.iconFooter} />
+                    </View>
                 </TouchableOpacity>
         </View>
       )
@@ -126,6 +134,13 @@ const styles = StyleSheet.create({
         paddingLeft:90
     },
     iconStyle: {
-        fontSize: 15
+        fontSize: 30,
+        marginLeft:"30%",
+        marginTop:15
+    },
+    iconFooter:{
+        fontSize: 30,
+        marginLeft:"45%",
+        marginTop:15
     }
 });
