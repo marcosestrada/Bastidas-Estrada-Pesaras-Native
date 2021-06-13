@@ -40,10 +40,23 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
+  borrarTarjeta = (idTarjeta)=>{
+    let resultado = this.state.importedUsers.filter( (item)=> {
+  
+        return item.login.uuid !== idTarjeta;
+    })
+    this.setState({importedUsers: resultado});
+  }
+
+  borrarCompleto = ()=> {
+    this.setState({importedUsers: []})
+  }
+
   render(){
     const values = this.state.importedUsers.map(item =>
             
-      <TouchableOpacity key={item.login.uuid} onPress= { () => this.showModal(item)}>
+      <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
+        <Text style={styles.closeButton} onPress={this.borrarTarjeta}>X </Text>
         <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>
@@ -53,11 +66,15 @@ export class Screen_ViewImportedCards extends Component {
               
         )
     return(
-      <View>
+      <View >
         <TouchableOpacity opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
           <Text><Entypo name="home" size={24} color="black" /> Volver al Menu</Text>
         </TouchableOpacity>
-        <View><Text> Tarjetas Importadas</Text></View>
+        <View>
+          <Text> Tarjetas Importadas </Text>
+          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> BORRAR TARJETAS IMPORTADAS</Text>
+        </View>
+        <View></View>
         <ScrollView>{values}
         <Modal visible={this.state.showModal}
                 animationType="slide"
@@ -67,15 +84,21 @@ export class Screen_ViewImportedCards extends Component {
                             { this.state.itemModal
                             ?
                             <>
-                            <Image style={{width: 100, height:100}} source={{uri: this.state.itemModal.picture.thumbnail}}/>
-                            <Text style={styles.textModal}>{
-                            this.state.itemModal.name.first}</Text>
-                            <Text style={styles.textModal}>{
-                            this.state.itemModal.name.last}</Text>
-                            <Text style={styles.textModal}>{
-                            this.state.itemModal.dob.age}</Text>
-                            <Text style={styles.textModal}>{
-                            this.state.itemModal.address}</Text>
+                            <Text style={styles.textModal}>Direccion: {
+                            this.state.itemModal.location.street.number}, {this.state.itemModal.location.street.name}</Text>
+                            <Text style={styles.textModal}> Ciudad: {
+                            this.state.itemModal.location.city}</Text>
+                            <Text style={styles.textModal}> Estado: {
+                            this.state.itemModal.location.state}</Text>
+                            <Text style={styles.textModal}> País: {
+                            this.state.itemModal.location.country}</Text>
+                            <Text style={styles.textModal}> Codgio Postal: {
+                            this.state.itemModal.location.postcode}</Text> 
+                            <Text style={styles.textModal}> Fecha de Registro: {
+                            this.state.itemModal.registered.date}</Text>
+                            <Text style={styles.textModal}> Telefono: {
+                            this.state.itemModal.cell}</Text>
+                            <Text style={styles.textModal}> Información Adicional: (aca iria lo que la gente edita de la tarjeta, en la parte de editar) </Text>
                             <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
                             </>
                             :<Text>Nothing to show.</Text>
@@ -96,10 +119,10 @@ export class Screen_ViewImportedCards extends Component {
 
 const styles = StyleSheet.create({
   closeButton:{
-      fontSize: 20,
+      fontSize: 25,
       position: "absolute",
       right: 20,
-      top:10
+      top:10,      
   },
   textModal: {
       fontSize: 20
@@ -117,16 +140,15 @@ const styles = StyleSheet.create({
       padding: 20,
       width: "100%",
       height: "70%",
-      justifyContent: "flex-start",
-      alignItems: "flex-start",
-      backgroundColor: "white",
-      borderTopRightRadius: 20,
-      borderTopLeftRadius: 20,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "lightblue",
+      borderRadius: 20,
       shadowColor: "black",
       borderStyle: "solid",
-      borderWidth: 1,
+      borderWidth: 2,
       borderColor: "grey",
-      elevation:10
+      elevation: 10
   },
   header:{
       height: '10%',
@@ -172,6 +194,15 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems: 'center'
   },
+  borrarCompleto:{
+    backgroundColor: 'red',
+    width: 225
+  },
+  tarjetas: {
+    margin: 5,
+    backgroundColor: 'lightblue',
+    borderRadius: 20
+  }
   
 })
 
