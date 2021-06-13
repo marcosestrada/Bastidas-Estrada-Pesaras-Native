@@ -25,9 +25,6 @@ export class Screen_Flatlist extends Component {
       .then( results => {
         this.setState({contactos:results, activity:false});
       })
-      const unsuscribe = this.props.navigation.addListener("focus", () => {
-          Alert.alert("focus");
-      })
   }
 
   showModal(item) {
@@ -64,7 +61,6 @@ export class Screen_Flatlist extends Component {
                         keyExtractor={this.keyExtractor}
                 />
                 }
-                {/* <Button title="Mostrar Modal" onPress= { () => this.setState({showModal: !this.setState.showModal})}></Button>  */}
                 <Modal visible={this.state.showModal}
                 animationType="slide"
                 transparent={true}>

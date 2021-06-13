@@ -1,10 +1,13 @@
 import React, { Component} from "react"; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { 
     Text, 
     View, 
     StyleSheet,  
     Modal,
     TouchableOpacity,
+    Alert,
+    Image
 } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -16,33 +19,34 @@ export class Screen_Menu extends Component {
     constructor() {
         super();
         this.state = {
-            showModal: false,
+            showModal: false
         }
     }
 
 
     render() {
+
       return (
         <View style={{flex:1}}>
             <View style={{flex:1, flexDirection: 'row'}}>
-                <View style={styles.caja}>
+                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_ImportCards")}>
                     <Text style={styles.letra}>Importar tarjetas</Text> 
                     <AntDesign style={styles.iconStyle} name="download" />
-                </View>
-                <View style={styles.caja}>
+                </TouchableOpacity>
+                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_ViewImportedCards")}>
                     <Text style={styles.letra}>Ver Tarjetas Importadas</Text>
                     <FontAwesome5 style={styles.iconStyle} name="address-card" />
-                </View>
+                </TouchableOpacity>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
-                <View style={styles.caja}>
+                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_ModifyCards")}>
                     <Text style={styles.letra}>Modificar tarjetas</Text>
                     <FontAwesome5 style={styles.iconStyle} name="user-edit"/>
-                </View>
-                <View style={styles.caja}>
+                </TouchableOpacity>
+                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_DeletedCards")}>
                     <Text style={styles.letra}>Papelera de reciclaje</Text>
                     <Fontisto style={styles.iconStyle} name="trash" />
-                </View>
+                </TouchableOpacity>
             </View>
 
                 <Modal visible={this.state.showModal}
@@ -142,5 +146,5 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginLeft:"45%",
         marginTop:15
-    }
+    },
 });
