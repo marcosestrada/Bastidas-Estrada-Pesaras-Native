@@ -11,6 +11,7 @@ import {
     ScrollView
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
+
 export class Screen_ImportCards extends Component {
     constructor() {
         super();
@@ -49,6 +50,7 @@ export class Screen_ImportCards extends Component {
             <Text style={styles.text}> {item.email} </Text>
             <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
             <Text style={styles.seleccionar}>Seleccionar Tarjeta</Text>
+            <Text style={styles.deseleccionar}>Anular Seleccion</Text>
           </TouchableOpacity>
             )
       return (
@@ -65,7 +67,7 @@ export class Screen_ImportCards extends Component {
                 {values}
                 </View>
                 <TouchableOpacity onPress={this.storeData.bind(this)}>
-                    <View><Text style={styles.guardar}>Guardar Tarjetas</Text></View>
+                    <View><Text style={styles.guardar}>Importar Tarjetas</Text></View>
                 </TouchableOpacity>
             </ScrollView> 
         </View>
@@ -103,5 +105,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: 20
-    }
+    },
+    deseleccionar:{
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 15,
+        color: 'red'
+    },
+
 })
