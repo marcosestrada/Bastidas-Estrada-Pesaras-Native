@@ -17,12 +17,12 @@ class App extends Component {
     return (
       <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Screen_Menu" component={Screen_Menu} />
-        <Stack.Screen name="Screen_ImportCards" component={Screen_ImportCards}/>
+        <Stack.Screen name="Screen_Menu" component={Screen_Menu} options={{title: 'MENU'}}/>
+        <Stack.Screen name="Screen_ImportCards" component={Screen_ImportCards} options={{title: 'IMPORTAR TARJETAS'}}/>
         <Stack.Screen name="Screen_Flatlist" component={Screen_Flatlist} />
-        <Stack.Screen name="Screen_ViewImportedCards" component={Screen_ViewImportedCards} />
-        <Stack.Screen name="Screen_ModifyCards" component={Screen_ModifyCards}/>
-        <Stack.Screen name="Screen_DeletedCards" component={Screen_DeletedCards}/>
+        <Stack.Screen name="Screen_ViewImportedCards" component={Screen_ViewImportedCards} options={{title: 'TARJETAS IMPORTADAS'}}/>
+        <Stack.Screen name="Screen_ModifyCards" component={Screen_ModifyCards} options={{title: 'MODIFICAR TARJETAS'}}/>
+        <Stack.Screen name="Screen_DeletedCards" component={Screen_DeletedCards} options={{title: 'TARJETAS ELIMINADAS'}}/>
       </Stack.Navigator>
       </NavigationContainer>
       
