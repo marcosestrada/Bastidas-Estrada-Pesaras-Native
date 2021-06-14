@@ -67,14 +67,17 @@ export class Screen_ViewImportedCards extends Component {
         )
     return(
       <View >
-        <TouchableOpacity opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
-          <Text><Entypo name="home" size={24} color="black" /> Volver al Menu</Text>
-        </TouchableOpacity>
+        <View style= {styles.top}>
+          <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
+              <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
+          </TouchableOpacity>
         <View>
           <Text> Tarjetas Importadas </Text>
+          
           <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> BORRAR TARJETAS IMPORTADAS</Text>
         </View>
-        <View></View>
+        </View>
+       
         <ScrollView>{values}
         <Modal visible={this.state.showModal}
                 animationType="slide"
@@ -118,6 +121,13 @@ export class Screen_ViewImportedCards extends Component {
 }
 
 const styles = StyleSheet.create({
+  top:{
+    backgroundColor: 'wheat',
+    borderRadius: 20,
+    flexDirection: 'row',
+    margin: 5,
+    alignItems: 'center',
+  },
   closeButton:{
       fontSize: 25,
       position: "absolute",
@@ -126,9 +136,6 @@ const styles = StyleSheet.create({
   },
   textModal: {
       fontSize: 20
-  },
-  listContainer: {
-      flex: 1,
   },
   modalContainer: {       
       flex:1,
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
       height: "70%",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "lightblue",
+      backgroundColor: "wheat",
       borderRadius: 20,
       shadowColor: "black",
       borderStyle: "solid",
@@ -150,31 +157,13 @@ const styles = StyleSheet.create({
       borderColor: "grey",
       elevation: 10
   },
-  header:{
-      height: '10%',
-      width: '100%',
-      backgroundColor:"blue",
-      justifyContent:'center',
-      alignItems: 'center'
-  },
-  container: {
-      flex:1,
-      justifyContent: "center",
-      alignItems: "center"
-  },
-  menu:{
-      height:200,
-      backgroundColor: "lime"
-  },
-  card:{
-      margin: 5,
-      padding:5,
-      width: 200,
-      height: 120,
-      borderBottomColor: "black",
-      borderBottomWidth: 2,
-      flex: 1,
-      alignItems: "center"
+  menu: {
+    borderRightWidth: 1,
+    borderRightColor: 'black',
+    marginBottom: 10,
+    marginTop: 10,
+    paddingRight: 5,
+    height: 35
   },
   text: {
       fontSize: 20
@@ -200,7 +189,7 @@ const styles = StyleSheet.create({
   },
   tarjetas: {
     margin: 5,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'wheat',
     borderRadius: 20
   }
   

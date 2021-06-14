@@ -28,6 +28,7 @@ export class Screen_ImportCards extends Component {
         .then(result => {
             this.setState({users:result.results})
         })
+        Alert.alert("Aqui va a poder ver las tarjetas");
     }
 
     async storeData(){
@@ -73,7 +74,7 @@ export class Screen_ImportCards extends Component {
         
             )
       return (
-        <View style={{flex:1}} style={styles.modalPadre}>
+        <View style={{flex:1}} >
             <View style= {styles.top}>
                 <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
                     <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
@@ -91,22 +92,21 @@ export class Screen_ImportCards extends Component {
                     <View><Text style={styles.guardar}>Importar Tarjetas</Text></View>
                 </TouchableOpacity>
             </ScrollView> 
+            
         </View>
       )
-    }
-}
+    }}
+
+
 const styles = StyleSheet.create({ 
     top:{
         backgroundColor: 'wheat',
         borderRadius: 20,
         flexDirection: 'row',
-        width: '90%',
-        height: '10%',
-        margin: 5
+        margin: 5,
+        alignItems: 'center'
     },
     menu: {
-        justifyContent: 'center',
-        alignContent: 'center',
         borderRightWidth: 1,
         borderRightColor: 'black',
         marginBottom: 10,
@@ -114,42 +114,45 @@ const styles = StyleSheet.create({
         paddingRight: 5,
     },
     info:{
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
+
         flex: 1,
         margin: 5
     },
     selec:{
-            justifyContent: 'center',
+        justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center'
     },
-
     text: {
         fontSize: 20
     },
     texto:{
         marginTop: 5
     },
-    data:{
-        marginLeft: 3
-    },
-    modalPadre:{
+
+    modalPadre:{ 
+        backgroundColor: 'rgba(0,0,0,0.1)',
         backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
         flex: 1,
-      },
-      tarjetas: {
+        padding: 10,
+    },
+    header:{
+        height: '10%',
+        width: '100%',
+        justifyContent:'center',
+        alignItems: 'center'
+    },
+    tarjetas: {
         margin: 5,
-        height:'10%',
-        
+        backgroundColor: 'wheat',
+        borderRadius: 20,
+    },
+    guardar:{
         backgroundColor: 'wheat',
         borderRadius: 20,
         flexDirection: 'row'
       },
-      contenedorFoto:{
+    contenedorFoto:{
         justifyContent: "center",
         alignItems: 'center',
         borderRightWidth:1,
@@ -157,24 +160,25 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         paddingRight: 5
-        
       },
-      contenedorInfo:{
+    contenedorInfo:{
         marginBottom: 10,
         marginTop: 10,
+        alignItems: 'center'
       },
-      nombre:{
+    nombre:{
         flexDirection:'row'
       },
-      guardar:{
+    guardar:{
         fontSize: 15,
         backgroundColor: 'red',
-        width: 350,
+        width: '100%',
         height: 20,
         fontWeight: 'bold',
-        textAlign: 'center'
-      },
-      image: {
+        textAlign: 'center',
+    },
+
+    image: {
         width: 100,
         height: 100,
         borderRadius: 50,
@@ -182,23 +186,11 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         margin: 3
     },
-    seleccionar:{
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontSize: 20
-    },
-    deseleccionar:{
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontSize: 15,
-        color: 'red'
-    },
     acciones:{
         width: "100%",
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-
     },
     check:{
         justifyContent: 'center',
@@ -208,7 +200,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#4287f5',
         borderRadius: 20,
         margin: 5
-
     },
     cross:{
         justifyContent: 'center',

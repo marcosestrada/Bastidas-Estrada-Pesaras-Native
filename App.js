@@ -18,7 +18,7 @@ class App extends Component {
       <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Screen_Menu" component={Screen_Menu} options={{title: 'MENU'}}/>
-        <Stack.Screen name="Screen_ImportCards" component={Screen_ImportCards} options={{title: 'IMPORTAR TARJETAS'}}/>
+        <Stack.Screen name="Screen_ImportCards" component={Screen_ImportCards} options={{title: 'TARJETAS'}}/>
         <Stack.Screen name="Screen_Flatlist" component={Screen_Flatlist} />
         <Stack.Screen name="Screen_ViewImportedCards" component={Screen_ViewImportedCards} options={{title: 'TARJETAS IMPORTADAS'}}/>
         <Stack.Screen name="Screen_ModifyCards" component={Screen_ModifyCards} options={{title: 'MODIFICAR TARJETAS'}}/>
