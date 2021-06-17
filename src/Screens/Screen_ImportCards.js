@@ -18,7 +18,8 @@ export class Screen_ImportCards extends Component {
         super();
         this.state = {
             showModal: false,
-            users:[]
+            users:[],
+            colorTarjeta: 'wheat'
         }
     }
 
@@ -84,12 +85,12 @@ export class Screen_ImportCards extends Component {
                      <Text style={styles.selec}>Selecciona la cantidad de tarjetas que quieres importar</Text>
                 </View>
             </View>
-            <ScrollView>
+            <ScrollView style={styles.contenedor}>
                 <View >
                 {values}
                 </View>
-                <TouchableOpacity onPress={this.storeData.bind(this)}>
-                    <View><Text style={styles.guardar}>Importar Tarjetas</Text></View>
+                <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
+                   <Text style={styles.cruz} >Importar Tarjetas</Text>
                 </TouchableOpacity>
             </ScrollView> 
             
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     texto:{
         marginTop: 5
     },
-
+   
     modalPadre:{ 
         backgroundColor: 'rgba(0,0,0,0.1)',
         backgroundColor: 'white',
@@ -147,11 +148,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'wheat',
         borderRadius: 20,
     },
-    guardar:{
-        backgroundColor: 'wheat',
-        borderRadius: 20,
-        flexDirection: 'row'
-      },
+   
     contenedorFoto:{
         justifyContent: "center",
         alignItems: 'center',
@@ -171,11 +168,17 @@ const styles = StyleSheet.create({
       },
     guardar:{
         fontSize: 15,
-        backgroundColor: 'red',
-        width: '100%',
-        height: 20,
+        backgroundColor: '#4287f5',
+        width: '90%',
+        borderRadius:20,
+        height: 40,
         fontWeight: 'bold',
         textAlign: 'center',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 20,
+        marginBottom: 2
     },
 
     image: {
