@@ -33,7 +33,9 @@ export class Screen_ViewImportedCards extends Component {
   async getData() {
     try{
         const resultado = await AsyncStorage.getItem("Users");
-        this.setState({importedUsers: JSON.parse(resultado)});
+        if (resultado == null)
+          Alert.alert("No hay usuarios importados")
+          else this.setState({importedUsers: JSON.parse(resultado)});
         return resultado;
     } catch(e){
         console.log("Error: " + e)
@@ -74,7 +76,7 @@ export class Screen_ViewImportedCards extends Component {
         <View>
           <Text> Tarjetas Importadas </Text>
           
-          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> BORRAR TARJETAS IMPORTADAS</Text>
+          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS</Text>
         </View>
         </View>
        
@@ -111,7 +113,7 @@ export class Screen_ViewImportedCards extends Component {
                 </Modal>
         </ScrollView>
         <TouchableOpacity onPress={this.getData.bind(this)}>
-        <View><Text>Importar Datos</Text></View>
+        <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
         </TouchableOpacity>
       </View>
     )
@@ -184,14 +186,27 @@ const styles = StyleSheet.create({
       alignItems: 'center'
   },
   borrarCompleto:{
-    backgroundColor: 'red',
+    backgroundColor: '#EDBB99',
     width: 225
   },
   tarjetas: {
     margin: 5,
     backgroundColor: 'wheat',
     borderRadius: 20
+  },
+  botonInicial: {
+    marginLeft: 150,
+    marginTop: 150,
+    width:105,
+    height:40,
+    backgroundColor:"#EDBB99",
+    borderRadius:40
+  },
+  textBoton:{
+    marginLeft:4,
+    marginTop: 8
   }
+
   
 })
 

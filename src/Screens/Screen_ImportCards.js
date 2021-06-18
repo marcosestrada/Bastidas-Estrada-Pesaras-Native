@@ -19,7 +19,9 @@ export class Screen_ImportCards extends Component {
         this.state = {
             showModal: false,
             users:[],
-            colorTarjeta: 'wheat'
+            colorTarjeta: 'wheat',
+            usuariosAImport:[],
+            
         }
     }
 
@@ -29,17 +31,35 @@ export class Screen_ImportCards extends Component {
         .then(result => {
             this.setState({users:result.results})
         })
-        Alert.alert("Aqui va a poder ver las tarjetas");
     }
 
     async storeData(){
         try{
-            const jsonUsers = JSON.stringify(this.state.users);
+            let storage =  await AsyncStorage.getItem("Users");
+            storage = JSON.parse(storage)
+            console.log(storage)
+            if (storage == null) storage = []
+            this.state.usuariosAImport.map(usuario => {
+                storage.push(usuario)
+            })
+            const jsonUsers = JSON.stringify(storage);
             await AsyncStorage.setItem("Users", jsonUsers);
             Alert.alert("Tarjetas Importadas con Éxito!")
         } catch(e){
             console.log("Error: " + e)
         }
+    }
+
+    updateImports(item){
+        let aImportar = this.state.usuariosAImport
+        aImportar.push(item)
+        this.setState({usuariosAImport:aImportar})
+    }
+
+    removeItem(item){
+    let aBorrar = this.state.usuariosAImport
+    aBorrar.splice(item)
+    this.setState({usuariosAImport:aBorrar})
     }
 
 
@@ -61,12 +81,12 @@ export class Screen_ImportCards extends Component {
                     <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
                 </View>
                 <View style ={styles.acciones}>
-                    <View style={styles.check}> 
+                    <TouchableOpacity style={styles.check} onPress= {() => this.updateImports(item)}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
-                    </View>
-                    <View style={styles.cross}> 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
                       <Text style={styles.cruz}>x</Text>
-                    </View>                   
+                    </TouchableOpacity>                   
                      {/* <Text style={styles.seleccionar}>Seleccionar Tarjeta</Text>
                     <Text style={styles.deseleccionar}>Anular Seleccion</Text> */}
                 </View>
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
     selec:{
         justifyContent: 'center',
         alignContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         fontSize: 20
