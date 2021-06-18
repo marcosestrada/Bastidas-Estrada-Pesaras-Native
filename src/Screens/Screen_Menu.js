@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     letra:{
         fontSize: 20,
-        marginTop: 50,
+        marginTop: 20,
         justifyContent: "center"
     },
     letraFooter: {

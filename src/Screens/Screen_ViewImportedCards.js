@@ -14,6 +14,7 @@ import {
   ScrollView
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 export class Screen_ViewImportedCards extends Component {
@@ -76,7 +77,7 @@ export class Screen_ViewImportedCards extends Component {
         <View>
           <Text> Tarjetas Importadas </Text>
           
-          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS</Text>
+          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" /></Text>
         </View>
         </View>
        
@@ -89,21 +90,21 @@ export class Screen_ViewImportedCards extends Component {
                             { this.state.itemModal
                             ?
                             <>
-                            <Text style={styles.textModal}>Direccion: {
+                            <Text style={styles.textModal}><Text style={{fontWeight: "bold"}}>Dirección:</Text>{' '}{
                             this.state.itemModal.location.street.number}, {this.state.itemModal.location.street.name}</Text>
-                            <Text style={styles.textModal}> Ciudad: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Ciudad:</Text>{' '}{
                             this.state.itemModal.location.city}</Text>
-                            <Text style={styles.textModal}> Estado: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Estado:</Text>{' '} {
                             this.state.itemModal.location.state}</Text>
-                            <Text style={styles.textModal}> País: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>País:</Text>{' '} {
                             this.state.itemModal.location.country}</Text>
-                            <Text style={styles.textModal}> Codgio Postal: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Código postal:</Text>{' '} {
                             this.state.itemModal.location.postcode}</Text> 
-                            <Text style={styles.textModal}> Fecha de Registro: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Fecha de registro:</Text>{' '} {
                             this.state.itemModal.registered.date}</Text>
-                            <Text style={styles.textModal}> Telefono: {
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
                             this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> Información Adicional: (aca iria lo que la gente edita de la tarjeta, en la parte de editar) </Text>
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Info. Adicional:</Text>{' '} (aca iria lo que la gente edita de la tarjeta, en la parte de editar) </Text>
                             <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
                             </>
                             :<Text>Nothing to show.</Text>
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
       top:10,      
   },
   textModal: {
-      fontSize: 20
+      fontSize: 20,
   },
   modalContainer: {       
       flex:1,
@@ -149,8 +150,8 @@ const styles = StyleSheet.create({
       padding: 20,
       width: "100%",
       height: "70%",
-      justifyContent: "center",
-      alignItems: "center",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
       backgroundColor: "wheat",
       borderRadius: 20,
       shadowColor: "black",
@@ -186,8 +187,9 @@ const styles = StyleSheet.create({
       alignItems: 'center'
   },
   borrarCompleto:{
+    marginLeft: 30,
     backgroundColor: '#EDBB99',
-    width: 225
+    width: 255
   },
   tarjetas: {
     margin: 5,

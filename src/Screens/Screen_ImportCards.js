@@ -4,12 +4,11 @@ import {
     Text, 
     View, 
     StyleSheet,  
-    Modal,
     TouchableOpacity,
     Alert,
     Image,
     ScrollView,
-    SafeAreaView
+    ActivityIndicator
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
@@ -19,6 +18,7 @@ export class Screen_ImportCards extends Component {
         this.state = {
             showModal: false,
             users:[],
+            activity: true,
             colorTarjeta: 'wheat',
             usuariosAImport:[],
             
@@ -29,7 +29,7 @@ export class Screen_ImportCards extends Component {
         fetch("https://randomuser.me/api?results=10")
         .then(response => response.json())
         .then(result => {
-            this.setState({users:result.results})
+            this.setState({users:result.results, activity:false})
         })
     }
 
@@ -67,7 +67,7 @@ export class Screen_ImportCards extends Component {
 
         const values = this.state.users.map(item =>
   
-            <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
+            <TouchableOpacity style={styles.tarjetas} key={item.login.uuid}>
                 <View style={styles.contenedorFoto}>
                   <Image style={styles.image} source={{uri: item.picture.large}}/>
                 </View>
@@ -105,14 +105,20 @@ export class Screen_ImportCards extends Component {
                      <Text style={styles.selec}>Selecciona la cantidad de tarjetas que quieres importar</Text>
                 </View>
             </View>
-            <ScrollView style={styles.contenedor}>
-                <View >
-                {values}
-                </View>
-                <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
-                   <Text style={styles.cruz} >Importar Tarjetas</Text>
-                </TouchableOpacity>
-            </ScrollView> 
+            { this.state.activity
+                ?<ActivityIndicator style={styles.loader}
+                color="#EDBB99" 
+                size="large"
+                />
+                :<ScrollView style={styles.contenedor}>
+                    <View>
+                        {values}
+                    </View>
+                    <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
+                    <Text style={styles.cruz} >Importar Tarjetas</Text>
+                    </TouchableOpacity>
+                </ScrollView> 
+            }
             
         </View>
       )
@@ -150,7 +156,6 @@ const styles = StyleSheet.create({
     texto:{
         marginTop: 5
     },
-   
     modalPadre:{ 
         backgroundColor: 'rgba(0,0,0,0.1)',
         backgroundColor: 'white',
@@ -168,7 +173,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'wheat',
         borderRadius: 20,
     },
-   
     contenedorFoto:{
         justifyContent: "center",
         alignItems: 'center',
@@ -238,6 +242,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         fontSize: 20
+    },
+    loader:{
+        marginTop: 180,
     }
 
 })
