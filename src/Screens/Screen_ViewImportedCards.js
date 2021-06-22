@@ -58,15 +58,16 @@ export class Screen_ViewImportedCards extends Component {
   }
 
 //Borrar tarjetas:
-async borrarTarjetas(){
+async borrarTarjetas(usuariosABorrar){
   try{
       // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             console.log(storage)
+            console.log(usuariosABorrar)
             if (storage != null) {
              storage = storage.filter( (item) => {
-               
+
                 return !this.state.usuariosABorrar.includes(item)
                 // return importedUsers != usuariosABorrar
               })

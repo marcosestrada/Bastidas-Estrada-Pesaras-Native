@@ -23,7 +23,7 @@ export class Screen_ImportCards extends Component {
             colorTarjeta: 'wheat',
             usuariosAImport:[],
             cantidadagregada: '0',
-            visibilidad: '',
+            visibilidad: 'flex',
             display: 'none',
             titulo: 'Selecciona la cantidad de tarjetas que quieres importar'
             
@@ -43,8 +43,8 @@ export class Screen_ImportCards extends Component {
         .then(response => response.json())
         .then(result => {
             this.setState({users:result.results, activity:false})
-            this.setState({visibilidad:'none'})
-            this.setState({display:''})
+           this.setState({visibilidad:'none'})
+            this.setState({display:'flex'})
             this.setState({titulo:'Tarjetas importadas'})
         
         })
@@ -53,7 +53,7 @@ export class Screen_ImportCards extends Component {
     async storeData(){
    
         try{
-            // await AsyncStorage.removeItem('Users')
+            //await AsyncStorage.removeItem('Users')
             let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             const seleccionados = "Se importaron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
@@ -110,8 +110,7 @@ export class Screen_ImportCards extends Component {
                     <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
                       <Text style={styles.cruz}>x</Text>
                     </TouchableOpacity>                   
-                     {/* <Text style={styles.seleccionar}>Seleccionar Tarjeta</Text>
-                    <Text style={styles.deseleccionar}>Anular Seleccion</Text> */}
+                     
                 </View>
                </View>
           </TouchableOpacity>
