@@ -77,7 +77,11 @@ async borrarTarjetas(){
   }
 }
 
-
+updateBorradas(item){
+  let aBorrar = this.state.usuariosABorrar
+  aBorrar.push(item)
+  this.setState({usuariosAImport:aBorrar})
+}
 
 
 
@@ -85,7 +89,7 @@ async borrarTarjetas(){
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={this.borrarTarjetas}/>
+        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
         <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>
@@ -141,6 +145,9 @@ async borrarTarjetas(){
         </ScrollView>
         <TouchableOpacity onPress={this.getData.bind(this)}>
         <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.borrarTarjetas.bind(this)}>
+          <View><Text>Borrar tarjetas seleccionadas</Text></View>
         </TouchableOpacity>
       </View>
     )
