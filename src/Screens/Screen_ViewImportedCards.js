@@ -1,21 +1,26 @@
 import React, { Component} from "react"; 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { 
-  FlatList, 
   Text, 
   View, 
   StyleSheet, 
   Image, 
-  ActivityIndicator, 
-  Button, 
+  TextInput,
   Modal, 
   TouchableOpacity, 
   Alert,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+
+
+
+
 
 
 export class Screen_ViewImportedCards extends Component {
@@ -25,7 +30,8 @@ export class Screen_ViewImportedCards extends Component {
           importedUsers: [],
           showModal: false,
           itemModal: null,
-          usuariosABorrar: []
+          usuariosABorrar: [],
+          search: '',
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
@@ -46,6 +52,53 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
+  //Ultimos cambios que hice
+  //Orden ascendente y descendente
+  az = () => {
+    this.state.importedUsers.sort((a, b) => a.name.first.localeCompare(b.name.first))
+    this.setState({importedUsers: this.state.importedUsers.sort(function(a, b) { return a.name.first > b.name.first})})
+  } 
+  za = () => {
+    this.state.importedUsers.sort((a, b) => b.name.first.localeCompare(a.name.first))
+    this.setState({importedUsers: this.state.importedUsers.sort(function(a, b) { return a.name.first < b.name.first})})
+  }
+
+  //  buscador
+  filter(text){
+    if (text.length > 0) {
+      const resultadoBusqueda = this.state.importedUsers
+      const filtrado = resultadoBusqueda.filter((item) =>{
+      const itemData = item.name.first.toUpperCase()
+      const lastName = item.name.last.toUpperCase()
+      const age = item.dob.age.toString()
+      const textData = text.toUpperCase()
+      console.log(age);
+      return (
+      itemData.includes(textData) || lastName.includes(textData) || age.includes(textData)
+        )})
+      this.setState({
+          importedUsers: filtrado,
+          textoBuscar: text,
+      })
+    } else {
+      this.setState({
+        importedUsers:this.state.importedUsers}) 
+    }
+  }
+
+  updateSearch = (text) => {
+    const resultadoBusqueda = this.state.importedUsers
+    const filtrado = resultadoBusqueda.filter((item) =>{
+    const itemData = item.name.first.toUpperCase();
+    const lastName = item.name.last.toUpperCase();
+    const age = item.dob.age.toString();
+    const textData = this.state.search.toUpperCase();
+    return (
+      itemData.includes(textData) || lastName.includes(textData) || age.includes(textData)
+    )
+    })
+  };
+
   // borrarTarjeta = (idTarjeta)=>{
   //   let resultado = this.state.importedUsers.filter( (item)=> {
   
@@ -64,7 +117,6 @@ async borrarTarjetas(usuariosABorrar){
       // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
-            console.log(this.state.usuariosABorrar)
             if (storage != null) {
              for(let i=0; i<this.state.usuariosABorrar.length; i++){
 
@@ -78,11 +130,9 @@ async borrarTarjetas(usuariosABorrar){
                //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
               const jsonUsers = JSON.stringify(storage);
               await AsyncStorage.setItem("Users", jsonUsers);
-              console.log(storage)
             }
       let borradas =  await AsyncStorage.getItem("Papelera");
       borradas = JSON.parse(borradas)
-      console.log(borradas)
       // const seleccionados = "Se borraron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
       if (borradas == null) borradas = []
       this.state.usuariosABorrar.map(usuario => {
@@ -105,6 +155,7 @@ updateBorradas(item){
 
 
   render(){
+    const { search } = this.state;
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
@@ -118,21 +169,33 @@ updateBorradas(item){
               
         )
     return(
-      <View >
+      <SafeAreaView>
         <View style= {styles.top}>
           <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
               <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.borrarTarjetas}>
-          <View ><Text >Borrar tarjetas seleccionadas</Text></View>
-        </TouchableOpacity>
-        <View>
-          <Text> Tarjetas Importadas </Text>
-          
-          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" /></Text>
+          {/* Buscador */}
+          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}); this.filter(text) }} value={search}  />
+          <TouchableOpacity>
+            <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/><Text> Resetear busqueda</Text>
+          </TouchableOpacity>
         </View>
-        
-        
+        <View style= {styles.topMed}>
+            <TouchableOpacity onPress={this.az.bind(this)}>
+                <Text > <MaterialCommunityIcons name="sort-alphabetical-ascending" size={24} color="black" />Orden Ascendente</Text>
+              </TouchableOpacity> 
+                <Text>                  </Text>
+              <TouchableOpacity onPress={this.za.bind(this)}>
+                <Text> <MaterialCommunityIcons name="sort-alphabetical-descending" size={24} color="black" />Orden Descendente</Text>
+              </TouchableOpacity>
+        </View>
+        <View style= {styles.topMed}>
+          <TouchableOpacity onPress={this.borrarTarjetas}>
+            <View ><Text> <AntDesign name="deleteusergroup" size={24} color="black" />Borrar tarjetas importadas</Text></View>
+          </TouchableOpacity>
+          <View>
+            <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
+          </View>
         </View>
        
         <ScrollView>{values}
@@ -171,7 +234,7 @@ updateBorradas(item){
         <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
         </TouchableOpacity>
 
-      </View>
+      </SafeAreaView>
     )
 
   }
@@ -185,6 +248,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 5,
     alignItems: 'center',
+  },
+  topMed:{
+    backgroundColor: 'wheat',
+    borderRadius: 20,
+    flexDirection: 'row',
+    margin: 5,
+    alignItems: 'center',
+    padding: 5
+  },
+  Buscador:{
+    marginLeft: 5,
+    borderColor: "black",
+    borderWidth: 1,
+    height: 40,
+    width: 200
   },
   closeButton:{
       fontSize: 30,
@@ -242,9 +320,8 @@ const styles = StyleSheet.create({
       alignItems: 'center'
   },
   borrarCompleto:{
-    marginLeft: 30,
-    backgroundColor: '#EDBB99',
-    width: 255
+    marginLeft: 3,
+    width: 255,
   },
   tarjetas: {
     margin: 5,
@@ -270,6 +347,9 @@ const styles = StyleSheet.create({
     height:40,
     backgroundColor:"#EDBB99",
     borderRadius:40
+  },
+  ResetIcon:{
+    marginLeft: 60
   }
 
   

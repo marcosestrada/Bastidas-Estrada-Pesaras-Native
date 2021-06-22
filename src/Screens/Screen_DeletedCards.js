@@ -23,8 +23,14 @@ export class Screen_DeletedCards extends Component {
       super();
       this.state = {
           usuariosABorrar: [],
+          showModal: false,
+          itemModal: null,
 
       }
+  }
+
+  showModal(item) {
+    this.setState({itemModal: item, showModal: !this.state.showModal})
   }
   
   async getData() {

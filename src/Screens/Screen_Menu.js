@@ -39,9 +39,10 @@ export class Screen_Menu extends Component {
                 </TouchableOpacity>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
-                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_ModifyCards")}>
-                    <Text style={styles.letra}>Modificar tarjetas</Text>
-                    <FontAwesome5 style={styles.iconStyle} name="user-edit"/>
+                <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.setState({showModal: !this.state.showModal})}>
+                    <View style={styles.caja}><Text style={styles.letra}>Acerca de ...</Text>
+                        <Entypo name="info" style={styles.iconFooter} />
+                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.props.navigation.navigate("Screen_DeletedCards")}>
                     <Text style={styles.letra}>Papelera de reciclaje</Text>
@@ -63,11 +64,6 @@ export class Screen_Menu extends Component {
                     </View>
                 </Modal>
 
-                <TouchableOpacity opacity={0.8} style={{flex: 1, flexDirection: 'row'}} onPress={() => this.setState({showModal: !this.state.showModal})}>
-                    <View style={styles.caja}><Text style={styles.letraFooter}>Acerca de ...</Text>
-                        <Entypo name="info" style={styles.iconFooter} />
-                    </View>
-                </TouchableOpacity>
         </View>
       )
     }
