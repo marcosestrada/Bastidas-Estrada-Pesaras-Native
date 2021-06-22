@@ -23,15 +23,12 @@ export class Screen_DeletedCards extends Component {
       super();
       this.state = {
           usuariosABorrar: [],
-<<<<<<< HEAD
           showModal: false,
           itemModal: null,
-=======
           visibilidad: 'flex',
           display: 'none',
           titulo: 'Selecciona la cantidad de tarjetas que quieres importar',
           showModal: false
->>>>>>> ba74bfd889f546c4a05b0556483149d1cea1dc0b
 
       }
   }
