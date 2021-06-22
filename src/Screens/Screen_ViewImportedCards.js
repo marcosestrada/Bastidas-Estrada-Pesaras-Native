@@ -114,6 +114,8 @@ export class Screen_ViewImportedCards extends Component {
 //Borrar tarjetas:
 async borrarTarjetas(usuariosABorrar){
   try{
+      // await AsyncStorage.removeItem('Users')
+      // await AsyncStorage.removeItem('Papelera')
       // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
