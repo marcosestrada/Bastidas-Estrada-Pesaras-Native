@@ -24,7 +24,8 @@ export class Screen_ViewImportedCards extends Component {
       this.state = {
           importedUsers: [],
           showModal: false,
-          itemModal: null
+          itemModal: null,
+          usuariosABorrar: []
       }
   }
 
@@ -55,6 +56,30 @@ export class Screen_ViewImportedCards extends Component {
   borrarCompleto = ()=> {
     this.setState({importedUsers: []})
   }
+
+//Borrar tarjetas:
+async borrarTarjetas(){
+  try{
+      let borradas =  await AsyncStorage.getItem("Users");
+      borradas = JSON.parse(borradas)
+      console.log(borradas)
+      // const seleccionados = "Se borraron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
+      if (borradas == null) borradas = []
+      this.state.usuariosABorrar.map(usuario => {
+          borradas.push(usuario)
+      })
+      const jsonUsers = JSON.stringify(borradas);
+      await AsyncStorage.setItem("Users", jsonUsers);
+      Alert.alert(seleccionados)
+  
+  }catch(e){
+      console.log("Error: " + e)
+  }
+}
+
+
+
+
 
   render(){
     const values = this.state.importedUsers.map(item =>
