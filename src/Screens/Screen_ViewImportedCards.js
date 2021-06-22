@@ -60,7 +60,15 @@ export class Screen_ViewImportedCards extends Component {
 //Borrar tarjetas:
 async borrarTarjetas(){
   try{
-      let borradas =  await AsyncStorage.getItem("Users");
+      // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
+      let storage =  await AsyncStorage.getItem("Users");
+            storage = JSON.parse(storage)
+            if (storage != null) {
+              storage = storage.filter( ) //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
+              const jsonUsers = JSON.stringify(storage);
+              await AsyncStorage.setItem("Users", jsonUsers);
+            }
+      let borradas =  await AsyncStorage.getItem("Papelera");
       borradas = JSON.parse(borradas)
       console.log(borradas)
       // const seleccionados = "Se borraron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
@@ -69,7 +77,7 @@ async borrarTarjetas(){
           borradas.push(usuario)
       })
       const jsonUsers = JSON.stringify(borradas);
-      await AsyncStorage.setItem("Users", jsonUsers);
+      await AsyncStorage.setItem("Papelera", jsonUsers);
       Alert.alert(seleccionados)
   
   }catch(e){
