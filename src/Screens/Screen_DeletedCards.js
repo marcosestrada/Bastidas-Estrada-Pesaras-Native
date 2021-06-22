@@ -23,6 +23,10 @@ export class Screen_DeletedCards extends Component {
       super();
       this.state = {
           usuariosABorrar: [],
+          visibilidad: 'flex',
+          display: 'none',
+          titulo: 'Selecciona la cantidad de tarjetas que quieres importar',
+          showModal: false
 
       }
   }
@@ -32,7 +36,7 @@ export class Screen_DeletedCards extends Component {
         const resultado = await AsyncStorage.getItem("Papelera");
         if (resultado == null)
           Alert.alert("No hay usuarios borrados")
-          else this.setState({usuariosABorrar: JSON.parse(resultado)});
+        else this.setState({usuariosABorrar: JSON.parse(resultado)});
         return resultado;
         
     } catch(e){
