@@ -77,14 +77,14 @@ export class Screen_ImportCards extends Component {
     }
 
  
-    removeItem(usuariosAImport){
-        // let aBorrar = this.state.usuariosAImport
-        // aBorrar.splice(item)
-        // this.setState({usuariosAImport:aBorrar})
-        let aBorrar = usuariosAImport.filter((item) => {
-            return !usuariosAImport.includes(item)
-        })
+    removeItem(item){
+        let aBorrar = this.state.usuariosAImport
+        aBorrar.splice(2, 1)
         this.setState({usuariosAImport:aBorrar})
+        // let aBorrar = usuariosAImport.filter((item) => {
+        //     return !usuariosAImport.includes(item)
+        // })
+        // this.setState({usuariosAImport:aBorrar})
         }
 
     render() {
