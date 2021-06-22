@@ -45,13 +45,13 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
-  borrarTarjeta = (idTarjeta)=>{
-    let resultado = this.state.importedUsers.filter( (item)=> {
+  // borrarTarjeta = (idTarjeta)=>{
+  //   let resultado = this.state.importedUsers.filter( (item)=> {
   
-        return item.login.uuid !== idTarjeta;
-    })
-    this.setState({importedUsers: resultado});
-  }
+  //       return item.login.uuid !== idTarjeta;
+  //   })
+  //   this.setState({importedUsers: resultado});
+  // }
 
   borrarCompleto = ()=> {
     this.setState({importedUsers: []})
@@ -63,10 +63,18 @@ async borrarTarjetas(){
       // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
+            console.log(storage)
             if (storage != null) {
-              storage = storage.filter( ) //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
+             storage = storage.filter( (item) => {
+               
+                return !this.state.usuariosABorrar.includes(item)
+                // return importedUsers != usuariosABorrar
+              })
+              this.setState({importedUsers: storage});
+               //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
               const jsonUsers = JSON.stringify(storage);
               await AsyncStorage.setItem("Users", jsonUsers);
+              console.log(storage)
             }
       let borradas =  await AsyncStorage.getItem("Papelera");
       borradas = JSON.parse(borradas)
@@ -79,7 +87,6 @@ async borrarTarjetas(){
       const jsonUsers = JSON.stringify(borradas);
       await AsyncStorage.setItem("Papelera", jsonUsers);
       Alert.alert(seleccionados)
-  
   }catch(e){
       console.log("Error: " + e)
   }
@@ -88,7 +95,7 @@ async borrarTarjetas(){
 updateBorradas(item){
   let aBorrar = this.state.usuariosABorrar
   aBorrar.push(item)
-  this.setState({usuariosAImport:aBorrar})
+  this.setState({usuariosABorrar:aBorrar})
 }
 
 
@@ -112,11 +119,16 @@ updateBorradas(item){
           <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
               <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={this.borrarTarjetas}>
+          <View ><Text >Borrar tarjetas seleccionadas</Text></View>
+        </TouchableOpacity>
         <View>
           <Text> Tarjetas Importadas </Text>
           
           <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" /></Text>
         </View>
+        
+        
         </View>
        
         <ScrollView>{values}
@@ -154,9 +166,7 @@ updateBorradas(item){
         <TouchableOpacity onPress={this.getData.bind(this)}>
         <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.borrarTarjetas.bind(this)}>
-          <View><Text>Borrar tarjetas seleccionadas</Text></View>
-        </TouchableOpacity>
+
       </View>
     )
 
@@ -173,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   closeButton:{
-      fontSize: 25,
+      fontSize: 30,
       position: "absolute",
       right: 20,
       top:10,      
@@ -248,6 +258,14 @@ const styles = StyleSheet.create({
   textBoton:{
     marginLeft:4,
     marginTop: 8
+  },
+  botonBorrarSelec:{
+    marginLeft: 150,
+    marginTop: 150,
+    width:105,
+    height:40,
+    backgroundColor:"#EDBB99",
+    borderRadius:40
   }
 
   
