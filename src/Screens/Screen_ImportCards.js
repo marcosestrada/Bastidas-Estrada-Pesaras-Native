@@ -8,7 +8,8 @@ import {
     Alert,
     Image,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
+    TextInput
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
@@ -18,18 +19,34 @@ export class Screen_ImportCards extends Component {
         this.state = {
             showModal: false,
             users:[],
-            activity: true,
+            activity: false,
             colorTarjeta: 'wheat',
             usuariosAImport:[],
+            cantidadagregada: '0',
+            visibilidad: '',
+            display: 'none',
+            titulo: 'Selecciona la cantidad de tarjetas que quieres importar'
             
         }
     }
 
-    componentDidMount(){
-        fetch("https://randomuser.me/api?results=10")
+    // componentDidMount(){
+    //     fetch("https://randomuser.me/api?results="+ this.state.cantidadagregada)
+    //     .then(response => response.json())
+    //     .then(result => {
+    //         this.setState({users:result.results, activity:false})
+    //     })
+    // }
+
+    addContact(){
+        fetch("https://randomuser.me/api?results="+ this.state.cantidadagregada)
         .then(response => response.json())
         .then(result => {
             this.setState({users:result.results, activity:false})
+            this.setState({visibilidad:'none'})
+            this.setState({display:''})
+            this.setState({titulo:'Tarjetas importadas'})
+        
         })
     }
 
@@ -56,12 +73,15 @@ export class Screen_ImportCards extends Component {
         this.setState({usuariosAImport:aImportar})
     }
 
-    removeItem(item){
-    let aBorrar = this.state.usuariosAImport
-    aBorrar.splice(item)
-    this.setState({usuariosAImport:aBorrar})
-    }
-
+ 
+    removeItem(usuariosAImport){
+        // let aBorrar = this.state.usuariosAImport
+        // aBorrar.splice(item)
+        // this.setState({usuariosAImport:aBorrar})
+        let aBorrar = usuariosAImport.filter(function(item){
+            return item
+        })
+        }
 
     render() {
 
@@ -100,10 +120,16 @@ export class Screen_ImportCards extends Component {
                 <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
                     <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
                 </TouchableOpacity>
-                <View style={styles.info}>
-                     <Text>Importar Tarjetas</Text>
-                     <Text style={styles.selec}>Selecciona la cantidad de tarjetas que quieres importar</Text>
-                </View>
+                <View style={styles.info} >
+                     <Text style={styles.selec}>{this.state.titulo}</Text>
+                     <View style={{display: this.state.visibilidad, flexDirection:'row', justifyContent: 'flex-start'}}>
+                        <TextInput  multiline={true}
+                            numberOfLines = {1}
+                            style={{borderWidth: 2, borderStyle:'solid', width: 100}} 
+                            onChangeText = {text => this.setState({cantidadagregada: text}) }/>
+                        <TouchableOpacity style={styles.agregarBoton} onPress= {() => this.addContact()}><Text>Agregar</Text></TouchableOpacity> 
+                </View>      
+            </View>
             </View>
             { this.state.activity
                 ?<ActivityIndicator style={styles.loader}
@@ -114,6 +140,19 @@ export class Screen_ImportCards extends Component {
                     <View>
                         {values}
                     </View>
+                    <View style={{display: this.state.display}}>
+                     <Text style={styles.selec}>Cambiar la cantidad de tarjetas que quieres visualizar</Text>
+                        <View style={styles.compAgregarTarjetas}>
+                            <TextInput  multiline={true}
+                                numberOfLines = {1}
+                                style={{borderWidth: 2, borderStyle:'solid', width: 100}} 
+                                onChangeText = {text => this.setState({cantidadagregada: text}) }/>
+                            <TouchableOpacity style={styles.agregarBoton} onPress= {() => this.addContact()}><Text>Agregar</Text></TouchableOpacity> 
+                        </View>
+                     </View>
+                     <View style={{display: this.state.visibilidad}}>
+                         <Text>No hay tarjetas importadas</Text>
+                     </View>
                     <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
                     <Text style={styles.cruz} >Importar Tarjetas</Text>
                     </TouchableOpacity>
@@ -143,7 +182,8 @@ const styles = StyleSheet.create({
     info:{
 
         flex: 1,
-        margin: 5
+        margin: 5,
+     
     },
     selec:{
         justifyContent: 'center',
@@ -155,6 +195,23 @@ const styles = StyleSheet.create({
     },
     texto:{
         marginTop: 5
+    },
+    agregarTarjetas:{
+        width: '100%',
+        height: '10%',
+        backgroundColor: 'wheat',
+        justifyContent: 'space-evenly'
+    },
+ 
+    agregarBoton:{
+        backgroundColor: '#4287f5',
+        borderRadius: 20,
+        margin: 5,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        width: 70,
+
     },
     modalPadre:{ 
         backgroundColor: 'rgba(0,0,0,0.1)',
@@ -172,6 +229,7 @@ const styles = StyleSheet.create({
         margin: 5,
         backgroundColor: 'wheat',
         borderRadius: 20,
+        
     },
     contenedorFoto:{
         justifyContent: "center",
