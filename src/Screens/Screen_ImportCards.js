@@ -147,7 +147,7 @@ export class Screen_ImportCards extends Component {
                                 numberOfLines = {1}
                                 style={{borderWidth: 2, borderStyle:'solid', width: 100}} 
                                 onChangeText = {text => this.setState({cantidadagregada: text}) }/>
-                            <TouchableOpacity style={styles.agregarBoton} onPress= {() => this.addContact()}><Text>Agregar</Text></TouchableOpacity> 
+                            <TouchableOpacity style={styles.agregarBoton} onPress= {() => this.addContact()}><Text>Cambiar</Text></TouchableOpacity> 
                         </View>
                      </View>
                      <View style={{display: this.state.visibilidad}}>
