@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Fontisto } from '@expo/vector-icons';
 
 
 export class Screen_ViewImportedCards extends Component {
@@ -59,7 +60,7 @@ export class Screen_ViewImportedCards extends Component {
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-        <Text style={styles.closeButton} onPress={this.borrarTarjeta}>X </Text>
+        <Fontisto style={styles.closeButton} name="trash" onPress={this.borrarTarjeta}/>
         <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>

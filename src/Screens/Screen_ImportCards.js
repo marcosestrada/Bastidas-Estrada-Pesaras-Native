@@ -55,14 +55,19 @@ export class Screen_ImportCards extends Component {
             let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             console.log(storage)
-            if (storage == null) storage = []
+            const seleccionados = "Se importaron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
+            if (storage == null){ storage = []
             this.state.usuariosAImport.map(usuario => {
                 storage.push(usuario)
             })
             const jsonUsers = JSON.stringify(storage);
             await AsyncStorage.setItem("Users", jsonUsers);
-            Alert.alert("Tarjetas Importadas con Éxito!")
-        } catch(e){
+            Alert.alert(seleccionados)
+        } else{
+            Alert.alert('No se selecciono ninguna tarjeta')
+          }
+          this.setState({seleccionados: []})
+        }catch(e){
             console.log("Error: " + e)
         }
     }
