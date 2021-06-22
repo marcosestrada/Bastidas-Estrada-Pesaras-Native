@@ -85,7 +85,7 @@ async borrarTarjetas(){
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={this.borrarTarjeta}/>
+        <Fontisto style={styles.closeButton} name="trash" onPress={this.borrarTarjetas}/>
         <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>
