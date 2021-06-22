@@ -53,7 +53,7 @@ export class Screen_ImportCards extends Component {
     async storeData(){
    
         try{
-            //await AsyncStorage.removeItem('Users')
+            // await AsyncStorage.removeItem('Users')
             let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             const seleccionados = "Se importaron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
@@ -81,9 +81,10 @@ export class Screen_ImportCards extends Component {
         // let aBorrar = this.state.usuariosAImport
         // aBorrar.splice(item)
         // this.setState({usuariosAImport:aBorrar})
-        let aBorrar = usuariosAImport.filter(function(item){
-            return item
+        let aBorrar = usuariosAImport.filter((item) => {
+            return !usuariosAImport.includes(item)
         })
+        this.setState({usuariosAImport:aBorrar})
         }
 
     render() {

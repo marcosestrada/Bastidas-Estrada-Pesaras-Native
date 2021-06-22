@@ -27,6 +27,7 @@ export class Screen_ViewImportedCards extends Component {
           itemModal: null,
           usuariosABorrar: []
       }
+      this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
 
   showModal(item) {
@@ -63,14 +64,16 @@ async borrarTarjetas(usuariosABorrar){
       // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
-            console.log(storage)
-            console.log(usuariosABorrar)
+            console.log(this.state.usuariosABorrar)
             if (storage != null) {
-             storage = storage.filter( (item) => {
+             for(let i=0; i<this.state.usuariosABorrar.length; i++){
 
-                return !this.state.usuariosABorrar.includes(item)
-                // return importedUsers != usuariosABorrar
-              })
+               storage = storage.filter( (item) => {
+                 
+                 return this.state.usuariosABorrar[i].login.uuid !=item.login.uuid
+                 // return importedUsers != usuariosABorrar
+                })
+              } 
               this.setState({importedUsers: storage});
                //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
               const jsonUsers = JSON.stringify(storage);
@@ -87,7 +90,7 @@ async borrarTarjetas(usuariosABorrar){
       })
       const jsonUsers = JSON.stringify(borradas);
       await AsyncStorage.setItem("Papelera", jsonUsers);
-      Alert.alert(seleccionados)
+      // Alert.alert(seleccionados)
   }catch(e){
       console.log("Error: " + e)
   }
