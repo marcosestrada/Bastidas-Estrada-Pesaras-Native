@@ -20,7 +20,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import TarjetaSelec from "../components/TarjetaSelec";
-
+import { styles } from '../styles/styles'
 
 
 
@@ -326,138 +326,138 @@ updateBorradas(item){
     
 }
 
-const styles = StyleSheet.create({
-  nombres:{
-    flexDirection: "row",
-  },
-  top:{
-    backgroundColor: 'wheat',
-    borderRadius: 20,
-    flexDirection: 'row',
-    margin: 5,
-    alignItems: 'center',
-  },
-  topMed:{
-    backgroundColor: 'wheat',
-    borderRadius: 10,
-    flexDirection: 'row',
-    margin: 5,
-    alignItems: 'center',
-    padding: 5,
-    justifyContent: 'space-between',
-    flexDirection:'row'
-  },
-  Buscador:{
-    marginLeft: 5,
-    borderColor: "black",
-    borderWidth: 1,
-    height: 40,
-    width: 200
-  },
-  closeButton:{
-      fontSize: 30,
-      position: "absolute",
-      right: 20,
-      top:10, 
-      color: 'red',     
-  },
-  textModal: {
-      fontSize: 20,
-  },
-  modalContainer: {       
-      flex:1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0,0,0,0.3)"
-  },
-  modal: {
-      padding: 20,
-      width: "100%",
-      height: "70%",
-      justifyContent: "flex-start",
-      alignItems: "flex-start",
-      backgroundColor: "wheat",
-      borderRadius: 20,
-      shadowColor: "black",
-      borderStyle: "solid",
-      borderWidth: 2,
-      borderColor: "grey",
-      elevation: 10
-  },
-  menu: {
-    borderRightWidth: 1,
-    borderRightColor: 'black',
-    marginBottom: 10,
-    marginTop: 10,
-    paddingRight: 5,
-    height: 35
-  },
-  text: {
-      fontSize: 20
-  },
-  separator:{
-      borderBottomColor: "black",
-      borderBottomWidth: 1
-  },
-  image: {
-      width: 70,
-      height: 70,
-      borderRadius: 50,
-      borderWidth: 2,
-      borderColor: 'black',
-      margin: 5
-  },
-  footer:{
-      height: '10%',
-      width: '100%',
-      backgroundColor:"blue",
-      justifyContent:'center',
-      alignItems: 'center'
-  },
-  borrarCompleto:{
-    marginLeft: 3,
+// const styles = StyleSheet.create({
+//   nombres:{
+//     flexDirection: "row",
+//   },
+//   top:{
+//     backgroundColor: 'wheat',
+//     borderRadius: 20,
+//     flexDirection: 'row',
+//     margin: 5,
+//     alignItems: 'center',
+//   },
+//   topMed:{
+//     backgroundColor: 'wheat',
+//     borderRadius: 10,
+//     flexDirection: 'row',
+//     margin: 5,
+//     alignItems: 'center',
+//     padding: 5,
+//     justifyContent: 'space-between',
+//     flexDirection:'row'
+//   },
+//   Buscador:{
+//     marginLeft: 5,
+//     borderColor: "black",
+//     borderWidth: 1,
+//     height: 40,
+//     width: 200
+//   },
+//   closeButton:{
+//       fontSize: 30,
+//       position: "absolute",
+//       right: 20,
+//       top:10, 
+//       color: 'red',     
+//   },
+//   textModal: {
+//       fontSize: 20,
+//   },
+//   modalContainer: {       
+//       flex:1,
+//       justifyContent: "center",
+//       alignItems: "center",
+//       backgroundColor: "rgba(0,0,0,0.3)"
+//   },
+//   modal: {
+//       padding: 20,
+//       width: "100%",
+//       height: "70%",
+//       justifyContent: "flex-start",
+//       alignItems: "flex-start",
+//       backgroundColor: "wheat",
+//       borderRadius: 20,
+//       shadowColor: "black",
+//       borderStyle: "solid",
+//       borderWidth: 2,
+//       borderColor: "grey",
+//       elevation: 10
+//   },
+//   menu: {
+//     borderRightWidth: 1,
+//     borderRightColor: 'black',
+//     marginBottom: 10,
+//     marginTop: 10,
+//     paddingRight: 5,
+//     height: 35
+//   },
+//   text: {
+//       fontSize: 20
+//   },
+//   separator:{
+//       borderBottomColor: "black",
+//       borderBottomWidth: 1
+//   },
+//   image: {
+//       width: 70,
+//       height: 70,
+//       borderRadius: 50,
+//       borderWidth: 2,
+//       borderColor: 'black',
+//       margin: 5
+//   },
+//   footer:{
+//       height: '10%',
+//       width: '100%',
+//       backgroundColor:"blue",
+//       justifyContent:'center',
+//       alignItems: 'center'
+//   },
+//   borrarCompleto:{
+//     marginLeft: 3,
     
-  },
-/*   tarjetas: {
-    backgroundColor: 'wheat',
-    margin: 5,
-    borderRadius: 20,
-    justifyContent:'center',
-    alignContent:'center',
-    alignItems:'center'
-  }, */
-  botonInicial: {
-    marginLeft: 150,
-    marginTop: 20,
-    width:105,
-    height:40,
-    backgroundColor:"#EDBB99",
-    borderRadius:40
-  },
-  textBoton:{
-    marginLeft:4,
-    marginTop: 8
-  },
-  botonBorrarSelec:{
-    marginLeft: 150,
-    marginTop: 150,
-    width:105,
-    height:40,
-    backgroundColor:"#EDBB99",
-    borderRadius:40
-  },
-  ResetIcon:{
-    marginLeft: 60
-  },
-  Input:{
-    borderWidth: 1,
-    borderColor: "black",
-    padding: 8,
-    margin: 10,
-    width: 300,
-    marginLeft: 20
-  }
+//   },
+// /*   tarjetas: {
+//     backgroundColor: 'wheat',
+//     margin: 5,
+//     borderRadius: 20,
+//     justifyContent:'center',
+//     alignContent:'center',
+//     alignItems:'center'
+//   }, */
+//   botonInicial: {
+//     marginLeft: 150,
+//     marginTop: 20,
+//     width:105,
+//     height:40,
+//     backgroundColor:"#EDBB99",
+//     borderRadius:40
+//   },
+//   textBoton:{
+//     marginLeft:4,
+//     marginTop: 8
+//   },
+//   botonBorrarSelec:{
+//     marginLeft: 150,
+//     marginTop: 150,
+//     width:105,
+//     height:40,
+//     backgroundColor:"#EDBB99",
+//     borderRadius:40
+//   },
+//   ResetIcon:{
+//     marginLeft: 60
+//   },
+//   Input:{
+//     borderWidth: 1,
+//     borderColor: "black",
+//     padding: 8,
+//     margin: 10,
+//     width: 300,
+//     marginLeft: 20
+//   }
 
   
-})
+// })
 

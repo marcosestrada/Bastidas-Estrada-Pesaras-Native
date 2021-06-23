@@ -16,7 +16,7 @@ import {
 import { Entypo } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
-
+import { styles } from '../styles/styles'
 
 export class Screen_DeletedCards extends Component {
   constructor() {
@@ -230,213 +230,213 @@ updateRecuperar(item){
     
 }
 
-const styles = StyleSheet.create({
-  bigPoppa:{
-    justifyContent: 'center',
+// const styles = StyleSheet.create({
+//   bigPoppa:{
+//     justifyContent: 'center',
  
-  },
-  contenedorBoton:{
-    width: '100%',
-    alignItems: 'center'
-  },
+//   },
+//   contenedorBoton:{
+//     width: '100%',
+//     alignItems: 'center'
+//   },
 
-  tituloDelete:{
-      fontSize: 20,
-      marginRight: 10
-  },
-  contenedorTitulo:{
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'row'
-  },
-  top:{
-    backgroundColor: 'wheat',
-    borderRadius: 20,
-    flexDirection: 'row',
-    margin: 5,
-    alignItems: 'center',
-  },
-  closeButton:{
-      fontSize: 30,
-      position: "absolute",
-      right: 20,
-      top:10,      
-  },
-  textModal: {
-      fontSize: 20,
-  },
-  modalContainer: {       
-      flex:1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0,0,0,0.3)"
-  },
-  modal: {
-      padding: 20,
-      width: "100%",
-      height: "70%",
-      justifyContent: "flex-start",
-      alignItems: "flex-start",
-      backgroundColor: "wheat",
-      borderRadius: 20,
-      shadowColor: "black",
-      borderStyle: "solid",
-      borderWidth: 2,
-      borderColor: "grey",
-      elevation: 10
-  },
-  menu: {
-    borderRightWidth: 3,
-    borderRightColor: 'black',
-    marginBottom: 10,
-    marginTop: 10,
-    paddingRight: 20,
-    height: 35
-  },
-  text: {
-      fontSize: 20
-  },
-  separator:{
-      borderBottomColor: "black",
-      borderBottomWidth: 1
-  },
-  image: {
-      width: 50,
-      height: 50
-  },
-  footer:{
-      height: '10%',
-      width: '100%',
-      backgroundColor:"blue",
-      justifyContent:'center',
-      alignItems: 'center'
-  },
-  borrarCompleto:{
-    marginLeft: 30,
-    backgroundColor: '#EDBB99',
-    width: 255
-  },
-  tarjetas: {
-    margin: 5,
-    backgroundColor: 'wheat',
-    borderRadius: 20,
-    width: 300,
-  },
-  botonInicial: {
-    width: 150,
-    height:50,
-    backgroundColor:"#EDBB99",
-    borderRadius:40,
-    justifyContent: 'center',
-    marginTop: 10
-  },
-  textBoton:{
-    width: 300,
-    marginLeft: 3,
-    marginRight: 3
+//   tituloDelete:{
+//       fontSize: 20,
+//       marginRight: 10
+//   },
+//   contenedorTitulo:{
+//     justifyContent: 'center',
+//     alignContent: 'center',
+//     alignItems: 'center',
+//     flex: 1,
+//     flexDirection: 'row'
+//   },
+//   top:{
+//     backgroundColor: 'wheat',
+//     borderRadius: 20,
+//     flexDirection: 'row',
+//     margin: 5,
+//     alignItems: 'center',
+//   },
+//   closeButton:{
+//       fontSize: 30,
+//       position: "absolute",
+//       right: 20,
+//       top:10,      
+//   },
+//   textModal: {
+//       fontSize: 20,
+//   },
+//   modalContainer: {       
+//       flex:1,
+//       justifyContent: "center",
+//       alignItems: "center",
+//       backgroundColor: "rgba(0,0,0,0.3)"
+//   },
+//   modal: {
+//       padding: 20,
+//       width: "100%",
+//       height: "70%",
+//       justifyContent: "flex-start",
+//       alignItems: "flex-start",
+//       backgroundColor: "wheat",
+//       borderRadius: 20,
+//       shadowColor: "black",
+//       borderStyle: "solid",
+//       borderWidth: 2,
+//       borderColor: "grey",
+//       elevation: 10
+//   },
+//   menu: {
+//     borderRightWidth: 3,
+//     borderRightColor: 'black',
+//     marginBottom: 10,
+//     marginTop: 10,
+//     paddingRight: 20,
+//     height: 35
+//   },
+//   text: {
+//       fontSize: 20
+//   },
+//   separator:{
+//       borderBottomColor: "black",
+//       borderBottomWidth: 1
+//   },
+//   image: {
+//       width: 50,
+//       height: 50
+//   },
+//   footer:{
+//       height: '10%',
+//       width: '100%',
+//       backgroundColor:"blue",
+//       justifyContent:'center',
+//       alignItems: 'center'
+//   },
+//   borrarCompleto:{
+//     marginLeft: 30,
+//     backgroundColor: '#EDBB99',
+//     width: 255
+//   },
+//   tarjetas: {
+//     margin: 5,
+//     backgroundColor: 'wheat',
+//     borderRadius: 20,
+//     width: 300,
+//   },
+//   botonInicial: {
+//     width: 150,
+//     height:50,
+//     backgroundColor:"#EDBB99",
+//     borderRadius:40,
+//     justifyContent: 'center',
+//     marginTop: 10
+//   },
+//   textBoton:{
+//     width: 300,
+//     marginLeft: 3,
+//     marginRight: 3
     
-  },
-  botonBorrarSelec:{
-    marginLeft: 150,
-    marginTop: 150,
-    width:105,
-    height:40,
-    backgroundColor:"#EDBB99",
-    borderRadius:40
-  },
+//   },
+//   botonBorrarSelec:{
+//     marginLeft: 150,
+//     marginTop: 150,
+//     width:105,
+//     height:40,
+//     backgroundColor:"#EDBB99",
+//     borderRadius:40
+//   },
 
   
-//CSS COPIADO DE VIEWIMPORTEDCARDS  
-nombres:{
-  flexDirection: "row",
-},
-top:{
-  backgroundColor: 'wheat',
-  borderRadius: 20,
-  flexDirection: 'row',
-  margin: 5,
-  alignItems: 'center',
-},
-topMed:{
-  backgroundColor: 'wheat',
-  borderRadius: 10,
-  flexDirection: 'row',
-  margin: 5,
-  alignItems: 'center',
-  padding: 5,
-  justifyContent: 'space-between',
-  flexDirection:'row'
-},
-Buscador:{
-  marginLeft: 5,
-  borderColor: "black",
-  borderWidth: 1,
-  height: 40,
-  width: 200
-},
-closeButton:{
-    fontSize: 30,
-    position: "absolute",
-    right: 20,
-    top:10, 
-    color: 'red',     
-},
-textModal: {
-    fontSize: 20,
-},
-modalContainer: {       
-    flex:1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.3)"
-},
-modal: {
-    padding: 20,
-    width: "100%",
-    height: "70%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    backgroundColor: "wheat",
-    borderRadius: 20,
-    shadowColor: "black",
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: "grey",
-    elevation: 10
-},
-menu: {
-  borderRightWidth: 3,
-  borderRightColor: 'black',
-  marginBottom: 10,
-  marginTop: 10,
-  paddingRight: 10,
-  height: 35
-},
-text: {
-    fontSize: 20
-},
-separator:{
-    borderBottomColor: "black",
-    borderBottomWidth: 1
-},
-image: {
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-    borderWidth: 2,
-    borderColor: 'black',
-    margin: 5
-},
-footer:{
-    height: '10%',
-    width: '100%',
-    backgroundColor:"blue",
-    justifyContent:'center',
-    alignItems: 'center'
-},
+// //CSS COPIADO DE VIEWIMPORTEDCARDS  
+// nombres:{
+//   flexDirection: "row",
+// },
+// top:{
+//   backgroundColor: 'wheat',
+//   borderRadius: 20,
+//   flexDirection: 'row',
+//   margin: 5,
+//   alignItems: 'center',
+// },
+// topMed:{
+//   backgroundColor: 'wheat',
+//   borderRadius: 10,
+//   flexDirection: 'row',
+//   margin: 5,
+//   alignItems: 'center',
+//   padding: 5,
+//   justifyContent: 'space-between',
+//   flexDirection:'row'
+// },
+// Buscador:{
+//   marginLeft: 5,
+//   borderColor: "black",
+//   borderWidth: 1,
+//   height: 40,
+//   width: 200
+// },
+// closeButton:{
+//     fontSize: 30,
+//     position: "absolute",
+//     right: 20,
+//     top:10, 
+//     color: 'red',     
+// },
+// textModal: {
+//     fontSize: 20,
+// },
+// modalContainer: {       
+//     flex:1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     backgroundColor: "rgba(0,0,0,0.3)"
+// },
+// modal: {
+//     padding: 20,
+//     width: "100%",
+//     height: "70%",
+//     justifyContent: "flex-start",
+//     alignItems: "flex-start",
+//     backgroundColor: "wheat",
+//     borderRadius: 20,
+//     shadowColor: "black",
+//     borderStyle: "solid",
+//     borderWidth: 2,
+//     borderColor: "grey",
+//     elevation: 10
+// },
+// menu: {
+//   borderRightWidth: 3,
+//   borderRightColor: 'black',
+//   marginBottom: 10,
+//   marginTop: 10,
+//   paddingRight: 10,
+//   height: 35
+// },
+// text: {
+//     fontSize: 20
+// },
+// separator:{
+//     borderBottomColor: "black",
+//     borderBottomWidth: 1
+// },
+// image: {
+//     width: 70,
+//     height: 70,
+//     borderRadius: 50,
+//     borderWidth: 2,
+//     borderColor: 'black',
+//     margin: 5
+// },
+// footer:{
+//     height: '10%',
+//     width: '100%',
+//     backgroundColor:"blue",
+//     justifyContent:'center',
+//     alignItems: 'center'
+// },
 
 
 
-})
+// })
