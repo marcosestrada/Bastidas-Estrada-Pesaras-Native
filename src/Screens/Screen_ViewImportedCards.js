@@ -177,8 +177,8 @@ updateBorradas(item){
               <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
           {/* Buscador */}
-          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}); this.filter(text) }} value={search}  />
-          <TouchableOpacity>
+          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}); this.filter(text); this.updateSearch.bind(this) }} value={search}  />
+          <TouchableOpacity onPress={this.getData.bind(this)}>
             <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/><Text> Resetear busqueda</Text>
           </TouchableOpacity>
         </View>

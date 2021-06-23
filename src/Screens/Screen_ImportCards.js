@@ -74,8 +74,17 @@ export class Screen_ImportCards extends Component {
         let aImportar = this.state.usuariosAImport
         aImportar.push(item)
         this.setState({usuariosAImport:aImportar})
-    }
+        
 
+    }
+    
+    /*  CambiarColor=(nuevoColor)=>{
+
+        this.setState({colorTarjeta: nuevoColor});
+        console.log('queriendo cambiar colors');
+        console.log(this.state.colorTarjeta);
+     } */
+    
  
     removeItem(item){
         let aBorrar = this.state.usuariosAImport
@@ -91,7 +100,8 @@ export class Screen_ImportCards extends Component {
 
         const values = this.state.users.map(item =>
   
-            <TouchableOpacity style={styles.tarjetas} key={item.login.uuid}>
+            <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5,
+                 borderRadius: 20,}} key={item.login.uuid}>
                 <View style={styles.contenedorFoto}>
                   <Image style={styles.image} source={{uri: item.picture.large}}/>
                 </View>
@@ -105,7 +115,7 @@ export class Screen_ImportCards extends Component {
                     <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
                 </View>
                 <View style ={styles.acciones}>
-                    <TouchableOpacity style={styles.check} onPress= {() => this.updateImports(item)}> 
+                    <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /* ,this.CambiarColor.bind(this,'black') */}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
@@ -228,12 +238,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center'
     },
-    tarjetas: {
-        margin: 5,
-        backgroundColor: 'wheat',
-        borderRadius: 20,
-        
-    },
+  
     contenedorFoto:{
         justifyContent: "center",
         alignItems: 'center',
