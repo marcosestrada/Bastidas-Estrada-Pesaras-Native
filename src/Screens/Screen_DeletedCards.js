@@ -29,7 +29,8 @@ export class Screen_DeletedCards extends Component {
           display: 'none',
           showModal: false,
           color: 'wheat',
-
+          usuariosARecuperar: [],
+         
       }
   }
 
@@ -89,6 +90,41 @@ async borrarDefinitiva(){
 }
 
 
+async recuperarTarjeta(usuariosABorrar){
+  try{
+      let storage =  await AsyncStorage.getItem("Papelera");
+            storage = JSON.parse(storage)
+            if (storage != null) {
+             for(let i=0; i<this.state.usuariosARecuperar.length; i++){
+
+               storage = storage.filter( (item) => {
+                 
+                 return this.state.usuariosARecuperar[i].login.uuid !=item.login.uuid
+                })
+              } 
+              this.setState({usuariosABorrar: storage});
+              const jsonUsers = JSON.stringify(storage);
+              await AsyncStorage.setItem("Papelera", jsonUsers);
+            }
+      let recuperadas =  await AsyncStorage.getItem("Users");
+      recuperadas = JSON.parse(recuperadas)
+      if (recuperadas == null) recuperadas = []
+      this.state.usuariosARecuperar.map(usuario => {
+          recuperadas.push(usuario)
+      })
+      const jsonUsers = JSON.stringify(recuperadas);
+      await AsyncStorage.setItem("Users", jsonUsers);
+  }catch(e){
+      console.log("Error: " + e)
+  }
+}
+
+updateRecuperar(item){
+  let aRecuperar = this.state.usuariosARecuperar
+  aRecuperar.push(item)
+  this.setState({usuariosARecuperar: aRecuperar})
+  
+}
 
   render(){
     
@@ -121,6 +157,10 @@ async borrarDefinitiva(){
           <Text style={styles.texto}> {item.email} </Text>
           <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
         </View>
+        <TouchableOpacity onPress={() => this.updateRecuperar(item)}>
+          <Text>Recuperar Contacto</Text>
+          <MaterialCommunityIcons name="file-restore" size={24} color="black" />
+        </TouchableOpacity>
       </TouchableOpacity>
         )
     return(
@@ -177,6 +217,9 @@ async borrarDefinitiva(){
         </TouchableOpacity>
         <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
           <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botonInicial} onPress={this.recuperarTarjeta.bind(this)}>
+          <Text style={styles.textBoton}>Recuperar Tarjetas Seleccionadas</Text>
         </TouchableOpacity>
           </View>
 
