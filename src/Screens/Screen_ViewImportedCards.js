@@ -32,8 +32,9 @@ export class Screen_ViewImportedCards extends Component {
           itemModal: null,
           usuariosABorrar: [],
           search: '',
+          color: 'wheat',
           comentario: '',
-          color: 'wheat'
+          comentarioHandler: '',  
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
@@ -161,7 +162,8 @@ updateBorradas(item){
 
   render(){
     const { search } = this.state;
-    const { comentario } = this.state;
+    const { key } = this.props;
+
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} 
@@ -182,7 +184,7 @@ updateBorradas(item){
         </View>
         <View style={styles.datos}>
           <Text style={styles.texto}> {item.email} </Text>
-          <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
+          <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
         </View>
       </TouchableOpacity>
               
@@ -219,7 +221,8 @@ updateBorradas(item){
         <ScrollView>{values}
         <Modal visible={this.state.showModal}
                 animationType="slide"
-                transparent={true}>
+                transparent={true}
+                id={key}>
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
                             { this.state.itemModal
@@ -236,11 +239,16 @@ updateBorradas(item){
                             <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Código postal:</Text>{' '} {
                             this.state.itemModal.location.postcode}</Text> 
                             <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Fecha de registro:</Text>{' '} {
-                            this.state.itemModal.registered.date}</Text>
+                            this.state.itemModal.registered.date.substring(0,10)}</Text>
                             <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
                             this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Info. Adicional:{' '}{comentario}</Text>{' '}</Text>
-                            <TextInput style={styles.Input} placeholder="Agregar Detalle..." onChangeText={text => {this.setState({comentario: text}), this.filter(text)}}/>
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Comentario:{' '}{this.state.comentario}</Text>{' '}</Text>
+                            <TextInput style={styles.Input} placeholder="Agregar Detalle..." onChangeText={text => this.setState({comentarioHandler: text})}/>
+                                                                                  <TouchableOpacity onPress={() => this.setState({comentario: this.state.comentarioHandler})}>
+                                                                                                        <View>
+                                                                                                          <Text style={styles.Input}>Agregar Comentario</Text>
+                                                                                                        </View>
+                                                                                  </TouchableOpacity>
                             <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
                             </>
                             :<Text>Nothing to show.</Text>

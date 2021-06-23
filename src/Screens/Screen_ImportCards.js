@@ -112,7 +112,7 @@ export class Screen_ImportCards extends Component {
                 </View>
                 <View style={styles.data}>
                     <Text style={styles.texto}> {item.email} </Text>
-                    <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
+                    <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
                 </View>
                 <View style ={styles.acciones}>
                     <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /* ,this.CambiarColor.bind(this,'black') */}> 
