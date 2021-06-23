@@ -75,8 +75,17 @@ export class Screen_DeletedCards extends Component {
 //     console.log("Error: " + e)
 // }}
 
-borrarDefinitiva(item){
-  console.log(item)
+async borrarDefinitiva(){
+  try{
+    await AsyncStorage.removeItem('Papelera')
+    let aBorrar = this.state.usuariosABorrar
+    aBorrar.splice(0, aBorrar.length)
+    this.setState({usuariosABorrar: aBorrar})
+    console.log(aBorrar)
+  }
+  catch(e){
+    console.log("Error: " + e)
+}
 }
 
 
@@ -103,7 +112,6 @@ borrarDefinitiva(item){
         alignItems:'center'}}
         key={item.login.uuid} 
         onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.borrarDefinitiva.bind(item)}/>
         <Image style={styles.image} source={{uri: item.picture.large}}/>
         <View style={styles.nombres}>
         <Text style={styles.text}> {item.name.first} </Text>
@@ -164,6 +172,9 @@ borrarDefinitiva(item){
                 </Modal>
         </ScrollView>
         <View style={styles.contenedorBoton}>
+        <TouchableOpacity style={styles.botonInicial} onPress={this.borrarDefinitiva.bind(this)} >
+          <Text style={styles.textBoton}>LimpiarPapelera</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
           <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
         </TouchableOpacity>
