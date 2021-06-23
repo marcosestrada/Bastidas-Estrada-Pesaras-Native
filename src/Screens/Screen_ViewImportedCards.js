@@ -32,6 +32,7 @@ export class Screen_ViewImportedCards extends Component {
           itemModal: null,
           usuariosABorrar: [],
           search: '',
+          comentario: ''
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
@@ -158,6 +159,7 @@ updateBorradas(item){
 
   render(){
     const { search } = this.state;
+    const { comentario } = this.state;
     const values = this.state.importedUsers.map(item =>
             
       <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
@@ -171,13 +173,13 @@ updateBorradas(item){
               
         )
     return(
-      <SafeAreaView>
+      <SafeAreaView style={{flex:1}}>
         <View style= {styles.top}>
           <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
               <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
           {/* Buscador */}
-          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}); this.filter(text); this.updateSearch.bind(this) }} value={search}  />
+          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}), this.filter(text), this.updateSearch.bind(this) }} value={search}  />
           <TouchableOpacity onPress={this.getData.bind(this)}>
             <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/><Text> Resetear busqueda</Text>
           </TouchableOpacity>
@@ -199,7 +201,6 @@ updateBorradas(item){
             <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
           </View>
         </View>
-       
         <ScrollView>{values}
         <Modal visible={this.state.showModal}
                 animationType="slide"
@@ -223,7 +224,8 @@ updateBorradas(item){
                             this.state.itemModal.registered.date}</Text>
                             <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
                             this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Info. Adicional:</Text>{' '} (aca iria lo que la gente edita de la tarjeta, en la parte de editar) </Text>
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Info. Adicional:{' '}{comentario}</Text>{' '}</Text>
+                            <TextInput style={styles.Input} placeholder="Agregar Detalle..." onChangeText={text => {this.setState({comentario: text}), this.filter(text)}}/>
                             <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
                             </>
                             :<Text>Nothing to show.</Text>
@@ -231,10 +233,10 @@ updateBorradas(item){
                         </View>
                     </View>
                 </Modal>
+                <TouchableOpacity onPress={this.getData.bind(this)}>
+                  <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
+                </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity onPress={this.getData.bind(this)}>
-        <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
-        </TouchableOpacity>
 
       </SafeAreaView>
     )
@@ -332,7 +334,7 @@ const styles = StyleSheet.create({
   },
   botonInicial: {
     marginLeft: 150,
-    marginTop: 150,
+    marginTop: 20,
     width:105,
     height:40,
     backgroundColor:"#EDBB99",
@@ -352,6 +354,14 @@ const styles = StyleSheet.create({
   },
   ResetIcon:{
     marginLeft: 60
+  },
+  Input:{
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 8,
+    margin: 10,
+    width: 300,
+    marginLeft: 20
   }
 
   
