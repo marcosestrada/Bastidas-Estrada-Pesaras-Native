@@ -32,7 +32,8 @@ export class Screen_ViewImportedCards extends Component {
           itemModal: null,
           usuariosABorrar: [],
           search: '',
-          comentario: ''
+          comentario: '',
+          color: 'wheat'
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
@@ -153,6 +154,7 @@ updateBorradas(item){
   let aBorrar = this.state.usuariosABorrar
   aBorrar.push(item)
   this.setState({usuariosABorrar:aBorrar})
+  this.setState({color: '#e8665d'})
 }
 
 
@@ -162,13 +164,26 @@ updateBorradas(item){
     const { comentario } = this.state;
     const values = this.state.importedUsers.map(item =>
             
-      <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
+      <TouchableOpacity style={styles.tarjetas} 
+      style={{
+        backgroundColor: this.state.color,  
+        margin: 5,
+        borderRadius: 20,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'}}
+        key={item.login.uuid} 
+        onPress= { () => this.showModal(item)} >
         <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-        <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
+        <Image style={styles.image} source={{uri: item.picture.large}}/>
+        <View style={styles.nombres}>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>
-        <Text style={styles.text}> {item.email} </Text>
-        <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
+        </View>
+        <View style={styles.datos}>
+          <Text style={styles.texto}> {item.email} </Text>
+          <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
+        </View>
       </TouchableOpacity>
               
         )
@@ -187,19 +202,19 @@ updateBorradas(item){
         <View style= {styles.topMed}>
             <TouchableOpacity onPress={this.az.bind(this)}>
                 <Text > <MaterialCommunityIcons name="sort-alphabetical-ascending" size={24} color="black" />Orden Ascendente</Text>
-              </TouchableOpacity> 
-                <Text>                  </Text>
-              <TouchableOpacity onPress={this.za.bind(this)}>
+            </TouchableOpacity> 
+            <TouchableOpacity onPress={this.za.bind(this)}>
                 <Text> <MaterialCommunityIcons name="sort-alphabetical-descending" size={24} color="black" />Orden Descendente</Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
         </View>
         <View style= {styles.topMed}>
           <TouchableOpacity onPress={this.borrarTarjetas}>
-            <View ><Text> <AntDesign name="deleteusergroup" size={24} color="black" />Borrar tarjetas importadas</Text></View>
+            <View ><Text> <AntDesign name="deleteusergroup" size={24} color="black" />Borrar tarjetas</Text></View>
           </TouchableOpacity>
-          <View>
+         
+          <TouchableOpacity>
             <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <ScrollView>{values}
         <Modal visible={this.state.showModal}
@@ -246,6 +261,9 @@ updateBorradas(item){
 }
 
 const styles = StyleSheet.create({
+  nombres:{
+    flexDirection: "row",
+  },
   top:{
     backgroundColor: 'wheat',
     borderRadius: 20,
@@ -255,11 +273,13 @@ const styles = StyleSheet.create({
   },
   topMed:{
     backgroundColor: 'wheat',
-    borderRadius: 20,
+    borderRadius: 10,
     flexDirection: 'row',
     margin: 5,
     alignItems: 'center',
-    padding: 5
+    padding: 5,
+    justifyContent: 'space-between',
+    flexDirection:'row'
   },
   Buscador:{
     marginLeft: 5,
@@ -272,7 +292,8 @@ const styles = StyleSheet.create({
       fontSize: 30,
       position: "absolute",
       right: 20,
-      top:10,      
+      top:10, 
+      color: 'red',     
   },
   textModal: {
       fontSize: 20,
@@ -313,8 +334,12 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1
   },
   image: {
-      width: 50,
-      height: 50
+      width: 70,
+      height: 70,
+      borderRadius: 50,
+      borderWidth: 2,
+      borderColor: 'black',
+      margin: 5
   },
   footer:{
       height: '10%',
@@ -325,13 +350,16 @@ const styles = StyleSheet.create({
   },
   borrarCompleto:{
     marginLeft: 3,
-    width: 255,
+    
   },
-  tarjetas: {
-    margin: 5,
+/*   tarjetas: {
     backgroundColor: 'wheat',
-    borderRadius: 20
-  },
+    margin: 5,
+    borderRadius: 20,
+    justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center'
+  }, */
   botonInicial: {
     marginLeft: 150,
     marginTop: 20,

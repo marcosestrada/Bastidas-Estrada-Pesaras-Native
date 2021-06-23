@@ -61,22 +61,11 @@ export class Screen_ImportCards extends Component {
             this.state.usuariosAImport.map(usuario => {
                 storage.push(usuario)
             })
-            if (storage != null) {
-             for(let i=0; i<this.state.usuariosAImport.length; i++){
-
-               storage = storage.filter( (item) => {
-                 
-                 return this.state.usuariosAImport[i].login.uuid !=item.login.uuid
-                })
-              } 
-              this.setState({users: storage});
-              const jsonUsers = JSON.stringify(storage);
-              await AsyncStorage.setItem("Users", jsonUsers);
-              Alert.alert(seleccionados)
-            }
+            const jsonUsers = JSON.stringify(storage);
+            await AsyncStorage.setItem("Users", jsonUsers);
+            Alert.alert(seleccionados)
         
-        }
-        catch(e){
+        }catch(e){
             console.log("Error: " + e)
         }
     }
@@ -89,34 +78,23 @@ export class Screen_ImportCards extends Component {
 
     }
     
-    // CambiarColor=(nuevoColor)=>{
+    /*  CambiarColor=(nuevoColor)=>{
 
-    //     this.setState({colorTarjeta: nuevoColor});
-    //     console.log('queriendo cambiar colors');
-    //     console.log(this.state.colorTarjeta);
-    //  }
+        this.setState({colorTarjeta: nuevoColor});
+        console.log('queriendo cambiar colors');
+        console.log(this.state.colorTarjeta);
+     } */
     
  
-    // removeItem(item){
-    //     // let aBorrar = this.state.usuariosAImport
-    //     // aBorrar.splice(2, 1)
-    //     // this.setState({usuariosAImport:aBorrar})
-    //     let aBorrar = usuariosAImport.filter((item) => {
-    //          return !usuariosAImport.includes(item)
-    //      })
-    //      this.setState({usuariosAImport:aBorrar})
-    //     }
-
-    removeItem = (idUsuario) => {
-        let aBorrar = this.state.usuariosAImport.filter( (item)=> {
-        
-          return item.login.uuid !== idUsuario;
-          
-      })
-        this.setState({usuariosAImport: aBorrar})
-        console.log(this.state.usuariosAImport.length)
-      }
-
+    removeItem(item){
+        let aBorrar = this.state.usuariosAImport
+        aBorrar.splice(2, 1)
+        this.setState({usuariosAImport:aBorrar})
+        // let aBorrar = usuariosAImport.filter((item) => {
+        //     return !usuariosAImport.includes(item)
+        // })
+        // this.setState({usuariosAImport:aBorrar})
+        }
 
     render() {
 
@@ -137,10 +115,10 @@ export class Screen_ImportCards extends Component {
                     <Text style={styles.texto}> {item.dob.date} ({item.dob.age})</Text>
                 </View>
                 <View style ={styles.acciones}>
-                    <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /*, this.CambiarColor.bind(this,'black') */}> 
+                    <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /* ,this.CambiarColor.bind(this,'black') */}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cross} onPress= {this.removeItem}> 
+                    <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
                       <Text style={styles.cruz}>x</Text>
                     </TouchableOpacity>                   
                      
@@ -175,7 +153,7 @@ export class Screen_ImportCards extends Component {
                     <View>
                         {values}
                     </View>
-                    <View style={{display: this.state.display, justifyContent: "center", alignItems: "center", alignContent:"center"}}>
+                    <View style={{display: this.state.display}}>
                      <Text style={styles.selec}>Cambiar la cantidad de tarjetas que quieres visualizar</Text>
                         <View style={styles.compAgregarTarjetas}>
                             <TextInput  multiline={true}
@@ -186,7 +164,7 @@ export class Screen_ImportCards extends Component {
                         </View>
                      </View>
                      <View style={{display: this.state.visibilidad}}>
-                         <Text style={styles.TextInicial}>No hay tarjetas importadas</Text>
+                         <Text>No hay tarjetas importadas</Text>
                      </View>
                     <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
                     <Text style={styles.cruz} >Importar Tarjetas</Text>
@@ -207,20 +185,17 @@ const styles = StyleSheet.create({
         margin: 5,
         alignItems: 'center'
     },
-    TextInicial:{
-        marginLeft: 130
-    },
     menu: {
         borderRightWidth: 1,
         borderRightColor: 'black',
         marginBottom: 10,
         marginTop: 10,
-        paddingRight: 10,
+        paddingRight: 5,
     },
     info:{
 
         flex: 1,
-        margin: 10,
+        margin: 5,
      
     },
     selec:{
@@ -263,9 +238,12 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center'
     },
+  
     contenedorFoto:{
         justifyContent: "center",
         alignItems: 'center',
+        borderRightWidth:1,
+        borderRightColor: 'black',
         marginTop: 10,
         marginBottom: 10,
         paddingRight: 5
@@ -333,6 +311,6 @@ const styles = StyleSheet.create({
     },
     loader:{
         marginTop: 180,
-    },
+    }
 
 })
