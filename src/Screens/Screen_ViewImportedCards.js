@@ -33,8 +33,7 @@ export class Screen_ViewImportedCards extends Component {
           usuariosABorrar: [],
           search: '',
           color: 'wheat',
-          comentario: '',
-          comentarioHandler: '',  
+          comentario: []  
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
   }
@@ -117,9 +116,6 @@ export class Screen_ViewImportedCards extends Component {
 //Borrar tarjetas:
 async borrarTarjetas(usuariosABorrar){
   try{
-      // await AsyncStorage.removeItem('Users')
-      // await AsyncStorage.removeItem('Papelera')
-      // obtengo lo que tengo bajo la Key "Users", despues Json.Parse 
       let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             if (storage != null) {
@@ -128,24 +124,49 @@ async borrarTarjetas(usuariosABorrar){
                storage = storage.filter( (item) => {
                  
                  return this.state.usuariosABorrar[i].login.uuid !=item.login.uuid
-                 // return importedUsers != usuariosABorrar
                 })
               } 
               this.setState({importedUsers: storage});
-               //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
               const jsonUsers = JSON.stringify(storage);
               await AsyncStorage.setItem("Users", jsonUsers);
             }
       let borradas =  await AsyncStorage.getItem("Papelera");
       borradas = JSON.parse(borradas)
-      // const seleccionados = "Se borraron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
       if (borradas == null) borradas = []
       this.state.usuariosABorrar.map(usuario => {
           borradas.push(usuario)
       })
       const jsonUsers = JSON.stringify(borradas);
       await AsyncStorage.setItem("Papelera", jsonUsers);
-      // Alert.alert(seleccionados)
+  }catch(e){
+      console.log("Error: " + e)
+  }
+}
+
+async comentarioAAgregar(importedUsers){
+  try{
+      let storage =  await AsyncStorage.getItem("Users");
+            storage = JSON.parse(storage)
+            if (storage != null) {
+             for(let i=0; i<this.state.importedUsers.length; i++){
+
+               storage = storage.filter( (item) => {
+                 
+                 return this.state.importedUsers[i] == item.comentario
+                })
+              } 
+              this.setState({importedUsers: storage});
+              const jsonUsers = JSON.stringify(storage)
+              await AsyncStorage.setItem("Users", jsonUsers);
+            }
+      let comentadas =  await AsyncStorage.getItem("Comentarios");
+      comentadas = JSON.parse(comentadas)
+      if (comentadas == null) comentadas = []
+      this.state.importedUsers.map(usuario => {
+        comentadas.push(usuario)
+      })
+      const jsonUsers = JSON.stringify(comentadas);
+      await AsyncStorage.setItem("Comentarios", jsonUsers);
   }catch(e){
       console.log("Error: " + e)
   }
@@ -162,7 +183,7 @@ updateBorradas(item){
 
   render(){
     const { search } = this.state;
-    const { key } = this.props;
+    const { comentario} = this.state;
 
     const values = this.state.importedUsers.map(item =>
             
@@ -222,7 +243,7 @@ updateBorradas(item){
         <Modal visible={this.state.showModal}
                 animationType="slide"
                 transparent={true}
-                id={key}>
+                >
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
                             { this.state.itemModal
@@ -242,13 +263,13 @@ updateBorradas(item){
                             this.state.itemModal.registered.date.substring(0,10)}</Text>
                             <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
                             this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Comentario:{' '}{this.state.comentario}</Text>{' '}</Text>
-                            <TextInput style={styles.Input} placeholder="Agregar Detalle..." onChangeText={text => this.setState({comentarioHandler: text})}/>
-                                                                                  <TouchableOpacity onPress={() => this.setState({comentario: this.state.comentarioHandler})}>
-                                                                                                        <View>
-                                                                                                          <Text style={styles.Input}>Agregar Comentario</Text>
-                                                                                                        </View>
-                                                                                  </TouchableOpacity>
+                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Comentario:{' '}{comentario}</Text>{' '}</Text>
+                            <TextInput style={styles.Input} placeholder="Agregar Detalle" onChangeText={text => {this.setState({comentario: text})}}/>
+                           <TouchableOpacity onPress={this.comentarioAAgregar}>
+                              <View>
+                                <Text style={styles.Input}>Agregar Comentario</Text>
+                              </View>
+                            </TouchableOpacity>
                             <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
                             </>
                             :<Text>Nothing to show.</Text>
