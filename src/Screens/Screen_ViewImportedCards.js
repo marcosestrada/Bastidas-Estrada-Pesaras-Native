@@ -10,13 +10,16 @@ import {
   TouchableOpacity, 
   Alert,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  FlatList,
+  
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
+import TarjetaSelec from "../components/TarjetaSelec";
 
 
 
@@ -184,32 +187,34 @@ updateBorradas(item){
   render(){
     const { search } = this.state;
     const { comentario} = this.state;
+    
 
-    const values = this.state.importedUsers.map(item =>
+    
+    // const values = this.state.importedUsers.map(item =>
             
-      <TouchableOpacity style={styles.tarjetas} 
-      style={{
-        backgroundColor: this.state.color,  
-        margin: 5,
-        borderRadius: 20,
-        justifyContent:'center',
-        alignContent:'center',
-        alignItems:'center'}}
-        key={item.login.uuid} 
-        onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-        <Image style={styles.image} source={{uri: item.picture.large}}/>
-        <View style={styles.nombres}>
-        <Text style={styles.text}> {item.name.first} </Text>
-        <Text style={styles.text}> {item.name.last} </Text>
-        </View>
-        <View style={styles.datos}>
-          <Text style={styles.texto}> {item.email} </Text>
-          <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
-        </View>
-      </TouchableOpacity>
+      // <TouchableOpacity style={styles.tarjetas} 
+      // style={{
+      //   backgroundColor: this.state.color,  
+      //   margin: 5,
+      //   borderRadius: 20,
+      //   justifyContent:'center',
+      //   alignContent:'center',
+      //   alignItems:'center'}}
+      //   key={id} 
+      //   onPress= { () => this.showModal(item)} >
+      //   <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
+      //   <Image style={styles.image} source={{uri: img}}/>
+      //   <View style={styles.nombres}>
+      //   <Text style={styles.text}> {firstName} </Text>
+      //   <Text style={styles.text}> {lastName} </Text>
+      //   </View>
+      //   <View style={styles.datos}>
+      //     <Text style={styles.texto}> {Email} </Text>
+      //     <Text style={styles.texto}> {Date} ({Birthday})</Text>
+      //   </View>
+      // </TouchableOpacity>
               
-        )
+        // )
     return(
       <SafeAreaView style={{flex:1}}>
         <View style= {styles.top}>
@@ -239,7 +244,39 @@ updateBorradas(item){
             <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>{values}
+        <ScrollView>{/* {values} */}
+        {
+          
+          <FlatList style={styles.flat}
+          data={this.state.importedUsers}
+          keyExtractor={ (item, idx) => idx.toString()}
+          
+          
+          renderItem={ ({item}) =>
+          (
+            <TarjetaSelec
+          id= {item.login.uuid}
+          firstName={item.name.first}
+          img={item.picture.large}
+          lastName={item.name.last}
+          Email={item.email}
+          city={item.location.city}
+          State={item.location.state}
+          Street={item.location.street.name}
+          StreetNumber={item.location.street.number}
+          Telephone= {item.phone}
+          imgMed={item.picture.medium}
+          Country={item.location.country}
+          Postcode={ item.location.postcode}
+          Birthday= {item.dob.age/* .substring(0,10) */}
+          Date= {item.dob.date/* .substring(0,10) */}
+          Registered = {item.registered.date}
+          >
+          </TarjetaSelec>
+            )
+          }
+          />
+        }  
         <Modal visible={this.state.showModal}
                 animationType="slide"
                 transparent={true}

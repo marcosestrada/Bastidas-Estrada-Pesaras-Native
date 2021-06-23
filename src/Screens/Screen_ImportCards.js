@@ -9,9 +9,12 @@ import {
     Image,
     ScrollView,
     ActivityIndicator,
-    TextInput
+    TextInput,
+    FlatList
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
+import TarjetaInit from "../components/TarjetaInit";
+
 
 export class Screen_ImportCards extends Component {
     constructor() {
@@ -98,35 +101,35 @@ export class Screen_ImportCards extends Component {
 
     render() {
 
-        const values = this.state.users.map(item =>
+        // const values = this.state.users.map(item =>
   
-            <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5,
-                 borderRadius: 20,}} key={item.login.uuid}>
-                <View style={styles.contenedorFoto}>
-                  <Image style={styles.image} source={{uri: item.picture.large}}/>
-                </View>
-                <View style={styles.contenedorInfo}>
-                <View style={styles.nombre}>
-                    <Text style={styles.text}> {item.name.first} </Text>
-                    <Text style={styles.text}> {item.name.last} </Text>
-                </View>
-                <View style={styles.data}>
-                    <Text style={styles.texto}> {item.email} </Text>
-                    <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
-                </View>
-                <View style ={styles.acciones}>
-                    <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /* ,this.CambiarColor.bind(this,'black') */}> 
-                      <Text><Entypo name="check" size={24} color="white" /></Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
-                      <Text style={styles.cruz}>x</Text>
-                    </TouchableOpacity>                   
+        //     <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5,
+        //          borderRadius: 20,}} key={item.login.uuid}>
+        //         <View style={styles.contenedorFoto}>
+        //           <Image style={styles.image} source={{uri: item.picture.large}}/>
+        //         </View>
+        //         <View style={styles.contenedorInfo}>
+        //         <View style={styles.nombre}>
+        //             <Text style={styles.text}> {item.name.first} </Text>
+        //             <Text style={styles.text}> {item.name.last} </Text>
+        //         </View>
+        //         <View style={styles.data}>
+        //             <Text style={styles.texto}> {item.email} </Text>
+        //             <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
+        //         </View>
+        //         <View style ={styles.acciones}>
+        //             <TouchableOpacity style={styles.check}  onPress= {() =>  this.updateImports(item) /* ,this.CambiarColor.bind(this,'black') */}> 
+        //               <Text><Entypo name="check" size={24} color="white" /></Text>
+        //             </TouchableOpacity>
+        //             <TouchableOpacity style={styles.cross} onPress= {() => this.removeItem(item)}> 
+        //               <Text style={styles.cruz}>x</Text>
+        //             </TouchableOpacity>                   
                      
-                </View>
-               </View>
-          </TouchableOpacity>
+        //         </View>
+        //        </View>
+        //   </TouchableOpacity>
         
-            )
+            // )
       return (
         <View style={{flex:1}} >
             <View style= {styles.top}>
@@ -150,9 +153,43 @@ export class Screen_ImportCards extends Component {
                 size="large"
                 />
                 :<ScrollView style={styles.contenedor}>
-                    <View>
+                    
+                    <FlatList style={styles.flat}
+          data={this.state.users}
+          keyExtractor={ (item, idx) => idx.toString()}
+
+
+          renderItem={ ({item}) =>
+              (
+                 <TarjetaInit
+                  onSelect = {this.updateImports.bind(this)}
+                  id= {item.login.uuid}
+                  firstName={item.name.first}
+                  img={item.picture.large}
+                  lastName={item.name.last}
+                  Email={item.email}
+                  city={item.location.city}
+                  State={item.location.state}
+                  Street={item.location.street.name}
+                  StreetNumber={item.location.street.number}
+                  Telephone= {item.phone}
+                  imgMed={item.picture.medium}
+                  Country={item.location.country}
+                  Postcode={ item.location.postcode}
+                  Birthday= {item.dob.age/* .substring(0,10) */}
+                  Date= {item.dob.date/* .substring(0,10) */}
+                  Registered = {item.registered.date}
+                  >
+                  </TarjetaInit>   
+                )
+         
+
+
+            }
+          />
+                    {/* <View>
                         {values}
-                    </View>
+                    </View> */}
                     <View style={{display: this.state.display}}>
                      <Text style={styles.selec}>Cambiar la cantidad de tarjetas que quieres visualizar</Text>
                         <View style={styles.compAgregarTarjetas}>
