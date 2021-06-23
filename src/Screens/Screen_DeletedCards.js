@@ -27,8 +27,8 @@ export class Screen_DeletedCards extends Component {
           itemModal: null,
           visibilidad: 'flex',
           display: 'none',
-          titulo: 'Selecciona la cantidad de tarjetas que quieres importar',
-          showModal: false
+          showModal: false,
+          color: 'wheat',
 
       }
   }
@@ -50,33 +50,83 @@ export class Screen_DeletedCards extends Component {
     }
   }
 
+
+
+//   async borrarDefinitiva(usuariosABorrar){
+//     try{
+//     let eliminados =  await AsyncStorage.getItem("Papelera");
+//     console.log(usuariosABorrar)
+//     console.log(eliminados)
+            
+//             if (eliminados != null) {
+//              for(let i=0; i<this.state.usuariosABorrar.length; i++){
+
+//                eliminados = eliminados.filter( (item) => {
+//                  return this.state.usuariosABorrar[i].login.uuid !=item.login.uuid
+//                  // return importedUsers != usuariosABorrar
+//                 })
+//               } 
+//               this.setState({usuariosABorrar: eliminados});
+//                //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
+//               const jsonUsers = JSON.stringify(eliminados);
+//               await AsyncStorage.setItem("Papelera", jsonUsers);
+//             }
+//   }catch(e){
+//     console.log("Error: " + e)
+// }}
+
+borrarDefinitiva(item){
+  console.log(item)
+}
+
+
+
   render(){
+    
     const values = this.state.usuariosABorrar.map(item =>
             
-      <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-        <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
+      // <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
+      //   <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
+      //   <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
+      //   <Text style={styles.text}> {item.name.first} </Text>
+      //   <Text style={styles.text}> {item.name.last} </Text>
+      //   <Text style={styles.text}> {item.email} </Text>
+      //   <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
+      // </TouchableOpacity>
+      <TouchableOpacity style={styles.tarjetas} 
+      style={{
+        backgroundColor: this.state.color,  
+        margin: 5,
+        borderRadius: 20,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'}}
+        key={item.login.uuid} 
+        onPress= { () => this.showModal(item)} >
+        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.borrarDefinitiva.bind(item)}/>
+        <Image style={styles.image} source={{uri: item.picture.large}}/>
+        <View style={styles.nombres}>
         <Text style={styles.text}> {item.name.first} </Text>
         <Text style={styles.text}> {item.name.last} </Text>
-        <Text style={styles.text}> {item.email} </Text>
-        <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
+        </View>
+        <View style={styles.datos}>
+          <Text style={styles.texto}> {item.email} </Text>
+          <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
+        </View>
       </TouchableOpacity>
-              
         )
     return(
-      <View >
+      <View  style= {styles.bigPoppa} >
         <View style= {styles.top}>
           <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
               <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.borrarTarjetas}>
-          <View ><Text >Borrar tarjetas seleccionadas</Text></View>
-        </TouchableOpacity>
-        <View>
-          <Text> Tarjetas Importadas </Text>
-          
-          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> CERRAR TARJETAS IMPORTADAS <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" /></Text>
-        </View>
+          <View style= {styles.contenedorTitulo} >
+            <Text style= {styles.tituloDelete}>Papelera</Text>
+            <Fontisto style={{fontSize: 20 }} name="trash" />
+          </View>
+        
+        
         
         
         </View>
@@ -113,9 +163,11 @@ export class Screen_DeletedCards extends Component {
                     </View>
                 </Modal>
         </ScrollView>
-        <TouchableOpacity onPress={this.getData.bind(this)}>
-        <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
+        <View style={styles.contenedorBoton}>
+        <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
+          <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
         </TouchableOpacity>
+          </View>
 
       </View>
     )
@@ -125,6 +177,26 @@ export class Screen_DeletedCards extends Component {
 }
 
 const styles = StyleSheet.create({
+  bigPoppa:{
+    justifyContent: 'center',
+ 
+  },
+  contenedorBoton:{
+    width: '100%',
+    alignItems: 'center'
+  },
+
+  tituloDelete:{
+      fontSize: 20,
+      marginRight: 10
+  },
+  contenedorTitulo:{
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row'
+  },
   top:{
     backgroundColor: 'wheat',
     borderRadius: 20,
@@ -162,11 +234,11 @@ const styles = StyleSheet.create({
       elevation: 10
   },
   menu: {
-    borderRightWidth: 1,
+    borderRightWidth: 3,
     borderRightColor: 'black',
     marginBottom: 10,
     marginTop: 10,
-    paddingRight: 5,
+    paddingRight: 20,
     height: 35
   },
   text: {
@@ -195,19 +267,22 @@ const styles = StyleSheet.create({
   tarjetas: {
     margin: 5,
     backgroundColor: 'wheat',
-    borderRadius: 20
+    borderRadius: 20,
+    width: 300,
   },
   botonInicial: {
-    marginLeft: 150,
-    marginTop: 150,
-    width:105,
-    height:40,
+    width: 150,
+    height:50,
     backgroundColor:"#EDBB99",
-    borderRadius:40
+    borderRadius:40,
+    justifyContent: 'center',
+    marginTop: 10
   },
   textBoton:{
-    marginLeft:4,
-    marginTop: 8
+    width: 300,
+    marginLeft: 3,
+    marginRight: 3
+    
   },
   botonBorrarSelec:{
     marginLeft: 150,
@@ -216,7 +291,98 @@ const styles = StyleSheet.create({
     height:40,
     backgroundColor:"#EDBB99",
     borderRadius:40
-  }
+  },
 
   
+//CSS COPIADO DE VIEWIMPORTEDCARDS  
+nombres:{
+  flexDirection: "row",
+},
+top:{
+  backgroundColor: 'wheat',
+  borderRadius: 20,
+  flexDirection: 'row',
+  margin: 5,
+  alignItems: 'center',
+},
+topMed:{
+  backgroundColor: 'wheat',
+  borderRadius: 10,
+  flexDirection: 'row',
+  margin: 5,
+  alignItems: 'center',
+  padding: 5,
+  justifyContent: 'space-between',
+  flexDirection:'row'
+},
+Buscador:{
+  marginLeft: 5,
+  borderColor: "black",
+  borderWidth: 1,
+  height: 40,
+  width: 200
+},
+closeButton:{
+    fontSize: 30,
+    position: "absolute",
+    right: 20,
+    top:10, 
+    color: 'red',     
+},
+textModal: {
+    fontSize: 20,
+},
+modalContainer: {       
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)"
+},
+modal: {
+    padding: 20,
+    width: "100%",
+    height: "70%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    backgroundColor: "wheat",
+    borderRadius: 20,
+    shadowColor: "black",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "grey",
+    elevation: 10
+},
+menu: {
+  borderRightWidth: 3,
+  borderRightColor: 'black',
+  marginBottom: 10,
+  marginTop: 10,
+  paddingRight: 10,
+  height: 35
+},
+text: {
+    fontSize: 20
+},
+separator:{
+    borderBottomColor: "black",
+    borderBottomWidth: 1
+},
+image: {
+    width: 70,
+    height: 70,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: 'black',
+    margin: 5
+},
+footer:{
+    height: '10%',
+    width: '100%',
+    backgroundColor:"blue",
+    justifyContent:'center',
+    alignItems: 'center'
+},
+
+
+
 })
