@@ -56,7 +56,8 @@ export class Screen_ImportCards extends Component {
     async storeData(){
    
         try{
-            // await AsyncStorage.removeItem('Users')
+            //await AsyncStorage.removeItem('Users')
+            console.log(this.state.usuariosAImport)
             let storage =  await AsyncStorage.getItem("Users");
             storage = JSON.parse(storage)
             const seleccionados = "Se importaron las " + this.state.usuariosAImport.length + " tarjetas seleccionadas"
@@ -64,6 +65,7 @@ export class Screen_ImportCards extends Component {
             this.state.usuariosAImport.map(usuario => {
                 storage.push(usuario)
             })
+            console.log(storage)
             const jsonUsers = JSON.stringify(storage);
             await AsyncStorage.setItem("Users", jsonUsers);
             Alert.alert(seleccionados)
@@ -76,6 +78,7 @@ export class Screen_ImportCards extends Component {
     updateImports(item){
         let aImportar = this.state.usuariosAImport
         aImportar.push(item)
+        console.log(aImportar)
         this.setState({usuariosAImport:aImportar})
     }
     
@@ -177,6 +180,7 @@ export class Screen_ImportCards extends Component {
                   Birthday= {item.dob.age/* .substring(0,10) */}
                   Date= {item.dob.date/* .substring(0,10) */}
                   Registered = {item.registered.date}
+                  data = {item}
                   >
                   </TarjetaInit>   
                 )
@@ -201,7 +205,7 @@ export class Screen_ImportCards extends Component {
                      <View style={{display: this.state.visibilidad}}>
                          <Text>No hay tarjetas importadas</Text>
                      </View>
-                    <TouchableOpacity style={styles.guardar} onPress={this.storeData.bind(this)}>
+                    <TouchableOpacity style={styles.guardar} onPress={() => this.storeData()}>
                     <Text style={styles.cruz} >Importar Tarjetas</Text>
                     </TouchableOpacity>
                 </ScrollView> 

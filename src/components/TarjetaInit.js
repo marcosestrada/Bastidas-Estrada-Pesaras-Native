@@ -41,7 +41,7 @@ class TarjetaInit extends Component {
                     <Text style={styles.texto}> {Date.substring(0,10)} ({Birthday})</Text>
                 </View>
                 <View style ={styles.acciones}>
-                    <TouchableOpacity style={styles.check}  onPress= { this.props.onSelect.bind(this,id)/* () =>  this.updateImports(item) */ /* ,this.CambiarColor.bind(this,'black') */}> 
+                    <TouchableOpacity style={styles.check}  onPress= {()=> this.props.onSelect(this.props.data)/* () =>  this.updateImports(item) */ /* ,this.CambiarColor.bind(this,'black') */}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
                     </TouchableOpacity>
                 

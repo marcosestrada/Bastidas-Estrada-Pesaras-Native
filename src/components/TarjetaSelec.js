@@ -3,7 +3,8 @@ import { View, SafeAreaView ,ScrollView,TextInput, Image,Text,Pressable, Modal, 
 import { Entypo } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { styles } from '../styles/Styles'
+import { styles } from '../styles/Styles';
+
 
 class TarjetaSelec extends Component { 
     constructor() {
@@ -23,7 +24,7 @@ class TarjetaSelec extends Component {
     }
     render(){
         
-        const { img, firstName, lastName,Email,Birthday, Date,id} = this.state;
+       
     return(
  
  
@@ -35,17 +36,16 @@ class TarjetaSelec extends Component {
         justifyContent:'center',
         alignContent:'center',
         alignItems:'center'}}
-        key={id} 
-        onPress= { () => this.showModal(item)} >
-        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-        <Image style={styles.image} source={{uri: img}}/>
+        onPress= { () => this.props.showModal(this.props.data)} >
+        <Fontisto style={styles.closeButton} name="trash" onPress={() => this.props.updateBorradas(this.props.data)}/>
+        <Image style={styles.image} source={{uri: this.props.data.picture.large}}/>
         <View style={styles.nombres}>
-        <Text style={styles.text}> {firstName} </Text>
-        <Text style={styles.text}> {lastName} </Text>
+        <Text style={styles.text}> {this.props.data.name.first} </Text>
+        <Text style={styles.text}> {this.props.data.name.last} </Text>
         </View>
         <View style={styles.datos}>
-          <Text style={styles.texto}> {Email} </Text>
-          <Text style={styles.texto}> {Date} ({Birthday})</Text>
+          <Text style={styles.texto}> {this.props.data.email} </Text>
+          <Text style={styles.texto}> {this.props.data.dob.date} ({this.props.data.dob.age})</Text>
         </View>
       </TouchableOpacity>
     )}}

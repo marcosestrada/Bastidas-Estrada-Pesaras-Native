@@ -16,7 +16,9 @@ import {
 import { Entypo } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
-import { styles } from '../styles/Styles'
+import { styles } from '../styles/Styles';
+import TarjetaBorrar from "../components/TarjetaBorrar";
+
 
 export class Screen_DeletedCards extends Component {
   constructor() {
@@ -126,8 +128,9 @@ updateRecuperar(item){
   
 }
 
+
   render(){
-    
+    const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
     // const values = this.state.usuariosABorrar.map(item =>
             
     //   <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
@@ -138,7 +141,8 @@ updateRecuperar(item){
     //     <Text style={styles.text}> {item.email} </Text>
     //     <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
     //   </TouchableOpacity>
-      <TouchableOpacity style={styles.tarjetas} 
+     
+/*     <TouchableOpacity style={styles.tarjetas} 
       style={{
         backgroundColor: this.state.color,  
         margin: 5,
@@ -161,7 +165,7 @@ updateRecuperar(item){
           <Text>Recuperar Contacto</Text>
           <MaterialCommunityIcons name="file-restore" size={24} color="black" />
         </TouchableOpacity>
-      </TouchableOpacity>
+      </TouchableOpacity> */
         // )
     return(
       <View  style= {styles.bigPoppa} >
@@ -179,7 +183,38 @@ updateRecuperar(item){
         
         </View>
        
-        <ScrollView>{values}
+        <ScrollView>
+
+        <FlatList style={styles.flat}
+          data={this.state.usuariosABorrar}
+          keyExtractor={ (item, idx) => idx.toString()}
+          
+          
+          renderItem={ ({item}) =>
+          (
+            <TarjetaBorrar
+            updateRecuperar = {this.updateRecuperar.bind(this)}
+            showModal = {this.showModal.bind(this)}
+            img={img}
+            firstName={firstName}
+             lastName={lastName}
+             Email={Email}
+             city={city}
+             State={Street}
+             StreetNumber={StreetNumber}
+             Telephone={Telephone}
+             Country={Country}
+             Bithday={Bithday}
+             Registered={Registered} 
+             Date={Date}
+             id={id} 
+             data = {item}
+          >
+          </TarjetaBorrar>
+            )
+          }
+          />
+
         <Modal visible={this.state.showModal}
                 animationType="slide"
                 transparent={true}>

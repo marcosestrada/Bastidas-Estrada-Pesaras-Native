@@ -43,14 +43,22 @@ export class Screen_ViewImportedCards extends Component {
 
   showModal(item) {
     this.setState({itemModal: item, showModal: !this.state.showModal})
-  }
-  
+  }  
+/*   
+ async componentDidMount (){
+    await AsyncStorage.removeItem('Users')
+  } */
+
   async getData() {
     try{
-        const resultado = await AsyncStorage.getItem("Users");
-        if (resultado == null)
-          Alert.alert("No hay usuarios importados")
-          else this.setState({importedUsers: JSON.parse(resultado)});
+        let resultado = await AsyncStorage.getItem("Users");
+        resultado = JSON.parse(resultado)
+        console.log(resultado)
+        if (resultado == null) {
+           Alert.alert("No hay usuarios importados")
+        }else {
+            this.setState({importedUsers: resultado});
+          }
         return resultado;
     } catch(e){
         console.log("Error: " + e)
@@ -255,6 +263,8 @@ updateBorradas(item){
           renderItem={ ({item}) =>
           (
             <TarjetaSelec
+            updateBorradas = {this.updateBorradas.bind(this)}
+            showModal = {this.showModal.bind(this)}
             img={img}
             firstName={firstName}
              lastName={lastName}
@@ -268,6 +278,7 @@ updateBorradas(item){
              Registered={Registered} 
              Date={Date}
              id={id}
+             data = {item}
           >
           </TarjetaSelec>
             )
