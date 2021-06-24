@@ -42,10 +42,7 @@ export class Screen_ViewImportedCards extends Component {
       // this.showModal = this.showModal.bind(this)
   }
 
-  showModal(item) {
-    this.setState({itemModal: item, showModal: !this.state.showModal})
-    console.log(item)
-  }  
+
 /*   
  async componentDidMount (){
     await AsyncStorage.removeItem('Users')
@@ -72,6 +69,7 @@ export class Screen_ViewImportedCards extends Component {
   az = () => {
     this.state.importedUsers.sort((a, b) => a.name.first.localeCompare(b.name.first))
     this.setState({importedUsers: this.state.importedUsers.sort(function(a, b) { return a.name.first > b.name.first})})
+    console.log('sejecuta')
   } 
   za = () => {
     this.state.importedUsers.sort((a, b) => b.name.first.localeCompare(a.name.first))
@@ -263,38 +261,29 @@ updateBorradas(item){
           
           renderItem={ ({item}) =>
           (
-            <TouchableOpacity style={styles.tarjetas} 
-            style={{
-              backgroundColor: this.state.color,  
-              margin: 5,
-              borderRadius: 20,
-              justifyContent:'center',
-              alignContent:'center',
-              alignItems:'center'}}
-              onPress= { this.showModal.bind(this, item)}>
+           
 
             <TarjetaSelec
-            updateBorradas = {this.updateBorradas.bind(this)}
-            showModal = {this.showModal.bind(this, item)}
-          
-            visible = {this.state.showModal}
-            // img={img}
-            // firstName={firstName}
-            // lastName={lastName}
-            // Email={Email}
-            // city={city}
-            // State={Street}
-            // StreetNumber={StreetNumber}
-            // Telephone={Telephone}
-            // Country={Country}
-            // Bithday={Bithday}
-            // Registered={Registered} 
-            // Date={Date}
-            // id={id}
+            updateBorradas = {this.updateBorradas.bind(this, item)}
+            // showModal = {this.showModal.bind(this, item)}
+            // visible = {this.state.showModal}
+            img={img}
+            firstName={firstName}
+            lastName={lastName}
+            Email={Email}
+            city={city}
+            State={Street}
+            StreetNumber={StreetNumber}
+            Telephone={Telephone}
+            Country={Country}
+            Bithday={Bithday}
+            Registered={Registered} 
+            Date={Date}
+            id={id}
             data = {item}
             >
            </TarjetaSelec>
-            </TouchableOpacity>
+           
             )
           }
           />

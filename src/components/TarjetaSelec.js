@@ -23,13 +23,26 @@ class TarjetaSelec extends Component {
             handler: []  
             
         }
+
     }
+    // showModal() {
+    //   this.setState({showModal: true})
+      
+    // }  
     render(){
       const {itemModal} = this.props  
       const { comentario} = this.state;
 
     return(
- 
+      <TouchableOpacity style={styles.tarjetas} 
+      style={{
+        backgroundColor: this.state.color,  
+        margin: 5,
+        borderRadius: 20,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center'}}
+        onPress= {() => this.setState({showModal: true})}>
  
  <View>
         <Fontisto style={styles.closeButton} name="trash" onPress={() => this.props.updateBorradas(this.props.data)}/>
@@ -42,7 +55,7 @@ class TarjetaSelec extends Component {
           <Text style={styles.texto}> {this.props.data.email} </Text>
           <Text style={styles.texto}> {this.props.data.dob.date} ({this.props.data.dob.age})</Text>
         </View>
-        <Modal visible={this.props.visible}
+        <Modal visible={this.state.showModal}
                 animationType="slide"
                 transparent={true}
                 >
@@ -69,7 +82,7 @@ class TarjetaSelec extends Component {
                                 <Text style={styles.Input}>Agregar Comentario</Text>
                               </View>
                             </TouchableOpacity>
-                            <Text style={styles.closeButton} onPress={() => this.props.showModal(null)}>X</Text>
+                            <Text style={styles.closeButton} onPress={() => this.setState({showModal: false})}>X</Text>
                            
                       
                     
@@ -77,6 +90,7 @@ class TarjetaSelec extends Component {
                     </View>
                 </Modal>
       </View>
+      </TouchableOpacity>
     )}}
 
     export default TarjetaSelec;
