@@ -3,7 +3,7 @@ import { View, SafeAreaView ,ScrollView,TextInput, Image,Text,Pressable, Modal, 
 import { Entypo } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 class TarjetaSelec extends Component { 
     constructor() {
@@ -23,7 +23,7 @@ class TarjetaSelec extends Component {
     }
     render(){
         
-        const { img, firstName, lastName,Email,city,State,Street,StreetNumber,Telephone, Country, Birthday,Registered, Date,id,key} = this.props;
+        const { img, firstName, lastName,Email,Birthday, Date,id} = this.state;
     return(
  
  

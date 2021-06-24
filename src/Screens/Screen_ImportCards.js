@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 import TarjetaInit from "../components/TarjetaInit";
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 export class Screen_ImportCards extends Component {
     constructor() {
@@ -77,8 +77,6 @@ export class Screen_ImportCards extends Component {
         let aImportar = this.state.usuariosAImport
         aImportar.push(item)
         this.setState({usuariosAImport:aImportar})
-        
-
     }
     
     /*  CambiarColor=(nuevoColor)=>{

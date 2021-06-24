@@ -14,7 +14,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 export class Screen_Menu extends Component {
     constructor() {

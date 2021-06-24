@@ -20,7 +20,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import TarjetaSelec from "../components/TarjetaSelec";
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 
 
@@ -187,7 +187,7 @@ updateBorradas(item){
   render(){
     const { search } = this.state;
     const { comentario} = this.state;
-    
+    const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
 
     
     // const values = this.state.importedUsers.map(item =>
@@ -255,22 +255,19 @@ updateBorradas(item){
           renderItem={ ({item}) =>
           (
             <TarjetaSelec
-          id= {item.login.uuid}
-          firstName={item.name.first}
-          img={item.picture.large}
-          lastName={item.name.last}
-          Email={item.email}
-          city={item.location.city}
-          State={item.location.state}
-          Street={item.location.street.name}
-          StreetNumber={item.location.street.number}
-          Telephone= {item.phone}
-          imgMed={item.picture.medium}
-          Country={item.location.country}
-          Postcode={ item.location.postcode}
-          Birthday= {item.dob.age/* .substring(0,10) */}
-          Date= {item.dob.date/* .substring(0,10) */}
-          Registered = {item.registered.date}
+            img={img}
+            firstName={firstName}
+             lastName={lastName}
+             Email={Email}
+             city={city}
+             State={Street}
+             StreetNumber={StreetNumber}
+             Telephone={Telephone}
+             Country={Country}
+             Bithday={Bithday}
+             Registered={Registered} 
+             Date={Date}
+             id={id}
           >
           </TarjetaSelec>
             )

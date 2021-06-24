@@ -3,7 +3,7 @@ import { View, SafeAreaView ,ScrollView,TextInput, Image,Text,Pressable, Modal, 
 import { Entypo } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 class TarjetaInit extends Component { 
     constructor() {
@@ -23,11 +23,11 @@ class TarjetaInit extends Component {
     }
     render(){
         
-        const { img, firstName, lastName,Email,city,State,Street,StreetNumber,Telephone, Country, Birthday,Registered, Date,id,key} = this.props;
+        const { img, firstName, lastName,Email, Birthday,Date,id} = this.props;
     return(
           
             <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5,
-                 borderRadius: 20,}} key={key}>
+                 borderRadius: 20,}} key={id}>
                 <View style={styles.contenedorFoto}>
                   <Image style={styles.image} source={{uri: img}}/>
                 </View>

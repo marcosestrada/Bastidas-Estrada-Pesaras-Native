@@ -16,7 +16,7 @@ import {
 import { Entypo } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
-import { styles } from '../styles/styles'
+import { styles } from '../styles/Styles'
 
 export class Screen_DeletedCards extends Component {
   constructor() {
@@ -128,16 +128,16 @@ updateRecuperar(item){
 
   render(){
     
-    const values = this.state.usuariosABorrar.map(item =>
+    // const values = this.state.usuariosABorrar.map(item =>
             
-      // <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-      //   <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-      //   <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
-      //   <Text style={styles.text}> {item.name.first} </Text>
-      //   <Text style={styles.text}> {item.name.last} </Text>
-      //   <Text style={styles.text}> {item.email} </Text>
-      //   <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
-      // </TouchableOpacity>
+    //   <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
+    //     <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
+    //     <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
+    //     <Text style={styles.text}> {item.name.first} </Text>
+    //     <Text style={styles.text}> {item.name.last} </Text>
+    //     <Text style={styles.text}> {item.email} </Text>
+    //     <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
+    //   </TouchableOpacity>
       <TouchableOpacity style={styles.tarjetas} 
       style={{
         backgroundColor: this.state.color,  
@@ -162,7 +162,7 @@ updateRecuperar(item){
           <MaterialCommunityIcons name="file-restore" size={24} color="black" />
         </TouchableOpacity>
       </TouchableOpacity>
-        )
+        // )
     return(
       <View  style= {styles.bigPoppa} >
         <View style= {styles.top}>
