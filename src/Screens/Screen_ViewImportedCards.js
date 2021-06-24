@@ -39,10 +39,12 @@ export class Screen_ViewImportedCards extends Component {
           comentario: []  
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
+      // this.showModal = this.showModal.bind(this)
   }
 
   showModal(item) {
     this.setState({itemModal: item, showModal: !this.state.showModal})
+    console.log(item)
   }  
 /*   
  async componentDidMount (){
@@ -194,7 +196,6 @@ updateBorradas(item){
 
   render(){
     const { search } = this.state;
-    const { comentario} = this.state;
     const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
 
     
@@ -252,8 +253,8 @@ updateBorradas(item){
             <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>{/* {values} */}
-        {
+        {/* {values} */}
+        
           
           <FlatList style={styles.flat}
           data={this.state.importedUsers}
@@ -262,70 +263,47 @@ updateBorradas(item){
           
           renderItem={ ({item}) =>
           (
+            <TouchableOpacity style={styles.tarjetas} 
+            style={{
+              backgroundColor: this.state.color,  
+              margin: 5,
+              borderRadius: 20,
+              justifyContent:'center',
+              alignContent:'center',
+              alignItems:'center'}}
+              onPress= { this.showModal.bind(this, item)}>
+
             <TarjetaSelec
             updateBorradas = {this.updateBorradas.bind(this)}
-            showModal = {this.showModal.bind(this)}
-            img={img}
-            firstName={firstName}
-             lastName={lastName}
-             Email={Email}
-             city={city}
-             State={Street}
-             StreetNumber={StreetNumber}
-             Telephone={Telephone}
-             Country={Country}
-             Bithday={Bithday}
-             Registered={Registered} 
-             Date={Date}
-             id={id}
-             data = {item}
-          >
-          </TarjetaSelec>
+            showModal = {this.showModal.bind(this, item)}
+          
+            visible = {this.state.showModal}
+            // img={img}
+            // firstName={firstName}
+            // lastName={lastName}
+            // Email={Email}
+            // city={city}
+            // State={Street}
+            // StreetNumber={StreetNumber}
+            // Telephone={Telephone}
+            // Country={Country}
+            // Bithday={Bithday}
+            // Registered={Registered} 
+            // Date={Date}
+            // id={id}
+            data = {item}
+            >
+           </TarjetaSelec>
+            </TouchableOpacity>
             )
           }
           />
-        }  
-        <Modal visible={this.state.showModal}
-                animationType="slide"
-                transparent={true}
-                >
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modal}>
-                            { this.state.itemModal
-                            ?
-                            <>
-                            <Text style={styles.textModal}><Text style={{fontWeight: "bold"}}>Dirección:</Text>{' '}{
-                            this.state.itemModal.location.street.number}, {this.state.itemModal.location.street.name}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Ciudad:</Text>{' '}{
-                            this.state.itemModal.location.city}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Estado:</Text>{' '} {
-                            this.state.itemModal.location.state}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>País:</Text>{' '} {
-                            this.state.itemModal.location.country}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Código postal:</Text>{' '} {
-                            this.state.itemModal.location.postcode}</Text> 
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Fecha de registro:</Text>{' '} {
-                            this.state.itemModal.registered.date.substring(0,10)}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
-                            this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Comentario:{' '}{comentario}</Text>{' '}</Text>
-                            <TextInput style={styles.Input} placeholder="Agregar Detalle" onChangeText={text => {this.setState({comentario: text})}}/>
-                           <TouchableOpacity onPress={this.comentarioAAgregar}>
-                              <View>
-                                <Text style={styles.Input}>Agregar Comentario</Text>
-                              </View>
-                            </TouchableOpacity>
-                            <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
-                            </>
-                            :<Text>Nothing to show.</Text>
-                            }
-                        </View>
-                    </View>
-                </Modal>
+         
+        
                 <TouchableOpacity onPress={this.getData.bind(this)}>
                   <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
                 </TouchableOpacity>
-        </ScrollView>
+        
 
       </SafeAreaView>
     )
