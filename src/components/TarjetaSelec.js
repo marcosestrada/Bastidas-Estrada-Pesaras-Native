@@ -4,13 +4,16 @@ import { Entypo } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { styles } from '../styles/Styles';
+import ModalComp from "../components/ModalComp";
+
+
 
 
 class TarjetaSelec extends Component { 
     constructor() {
         super();
         this.state = {
-            showModal: false,
+          isOpen: false,
             users:[],
             activity: false,
             colorTarjeta: 'wheat',
@@ -18,12 +21,18 @@ class TarjetaSelec extends Component {
             cantidadagregada: '0',
             visibilidad: 'flex',
             display: 'none',
-            titulo: 'Selecciona la cantidad de tarjetas que quieres importar'
+            titulo: 'Selecciona la cantidad de tarjetas que quieres importar',
             
         }
     }
+
+   
+    openModal =  ()=> this.setState({isOpen: true});
+    closeModal =  ()=> this.setState({isOpen: false});
+
     render(){
-        
+      const { img, firstName, lastName,Email,city,State,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id, key} = this.props;
+
        
     return(
  
@@ -36,7 +45,7 @@ class TarjetaSelec extends Component {
         justifyContent:'center',
         alignContent:'center',
         alignItems:'center'}}
-        onPress= { () => this.props.showModal(this.props.data)} >
+        onPress= {this.openModal} >
         <Fontisto style={styles.closeButton} name="trash" onPress={() => this.props.updateBorradas(this.props.data)}/>
         <Image style={styles.image} source={{uri: this.props.data.picture.large}}/>
         <View style={styles.nombres}>
@@ -47,6 +56,27 @@ class TarjetaSelec extends Component {
           <Text style={styles.texto}> {this.props.data.email} </Text>
           <Text style={styles.texto}> {this.props.data.dob.date} ({this.props.data.dob.age})</Text>
         </View>
+
+        <ModalComp
+                isOpenClose={this.state.isOpen}
+                openModal= {this.openModal.bind(this)}
+                closeModal= {this.closeModal.bind(this)}
+                img={img}
+                firstName={firstName}
+                 lastName={lastName}
+                 Email={Email}
+                 city={city}
+                 State={Street}
+                 StreetNumber={StreetNumber}
+                 Telephone={Telephone}
+                 Country={Country}
+                 Bithday={Bithday}
+                 Registered={Registered} 
+                 Date={Date}
+                 id={id}
+                />
+
+
       </TouchableOpacity>
     )}}
 
