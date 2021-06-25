@@ -1,15 +1,10 @@
 import React, { Component} from "react"; 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { 
     Text, 
     View, 
-    StyleSheet,  
     Modal,
     TouchableOpacity,
-    Alert,
-    Image
 } from 'react-native';
-
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
@@ -24,9 +19,7 @@ export class Screen_Menu extends Component {
         }
     }
 
-
     render() {
-
       return (
         <View style={{flex:1}}>
             <View style={{flex:1, flexDirection: 'row'}}>
@@ -41,7 +34,8 @@ export class Screen_Menu extends Component {
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
                 <TouchableOpacity opacity={0.8} style={styles.caja} onPress={() => this.setState({showModal: !this.state.showModal})}>
-                    <View style={styles.caja}><Text style={styles.letra}>Acerca de ...</Text>
+                    <View style={styles.caja}>
+                        <Text style={styles.letra}>Acerca de ...</Text>
                         <Entypo name="info" style={styles.iconFooter} />
                     </View>
                 </TouchableOpacity>
@@ -50,21 +44,19 @@ export class Screen_Menu extends Component {
                     <Fontisto style={styles.iconStyle} name="trash" />
                 </TouchableOpacity>
             </View>
-
-                <Modal visible={this.state.showModal}
+            
+            <Modal  visible={this.state.showModal}
                     animationType="slide"
                     transparent={true}>
+                    
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
-                            
-                            <Text style={styles.textModal}> Nuestro equipo esta formado por:</Text>
+                            <Text style={styles.textModal}> Nuestro equipo esta formado por: </Text>
                             <Text style={styles.textAuthor}> {'\n'}-David Bastidas- {'\n'}-Marcos Estrada- {'\n'}-Pedro Presaras-</Text>
-                            <Text style={styles.closeButton} onPress={() => this.setState({showModal:!this.state.showModal})}>X</Text>
-                        
+                            <Text style={styles.closeButton} onPress={() => this.setState({showModal:!this.state.showModal})}> X </Text>
                         </View>
                     </View>
-                </Modal>
-
+            </Modal>
         </View>
       )
     }

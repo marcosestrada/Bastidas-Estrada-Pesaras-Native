@@ -1,8 +1,11 @@
 import React, {Component} from "react";
-import { View, SafeAreaView ,ScrollView,TextInput, Image,Text,Pressable, Modal, Button, TouchableOpacity, StyleSheet} from 'react-native'
+import { 
+    View, 
+    Image,
+    Text,
+    TouchableOpacity, 
+} from 'react-native'
 import { Entypo } from '@expo/vector-icons'; 
-import { Fontisto } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 import { styles } from '../styles/Styles'
 
 class TarjetaInit extends Component { 
@@ -18,20 +21,18 @@ class TarjetaInit extends Component {
             visibilidad: 'flex',
             display: 'none',
             titulo: 'Selecciona la cantidad de tarjetas que quieres importar'
-            
         }
     }
-    render(){
-        
-        const { img, firstName, lastName,Email, Birthday,Date,id} = this.props;
+
+render(){ 
+    const { img, firstName, lastName,Email, Birthday,Date,id} = this.props;
+
     return(
-          
-            <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5,
-                 borderRadius: 20,}} key={id}>
-                <View style={styles.contenedorFoto}>
-                  <Image style={styles.image} source={{uri: img}}/>
-                </View>
-                <View style={styles.contenedorInfo}>
+        <TouchableOpacity style={{backgroundColor: this.state.colorTarjeta, margin: 5, borderRadius: 20}} key={id}>
+            <View style={styles.contenedorFoto}>
+                <Image style={styles.image} source={{uri: img}}/>
+            </View>
+            <View style={styles.contenedorInfo}>
                 <View style={styles.nombre}>
                     <Text style={styles.text}> {firstName} </Text>
                     <Text style={styles.text}> {lastName} </Text>
@@ -44,11 +45,9 @@ class TarjetaInit extends Component {
                     <TouchableOpacity style={styles.check}  onPress= {()=> this.props.onSelect(this.props.data)/* () =>  this.updateImports(item) */ /* ,this.CambiarColor.bind(this,'black') */}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
                     </TouchableOpacity>
-                
-                     
                 </View>
-               </View>
-          </TouchableOpacity>
+            </View>
+        </TouchableOpacity>
     )
 }}
 

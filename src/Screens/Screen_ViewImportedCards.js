@@ -3,19 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { 
   Text, 
   View, 
-  StyleSheet, 
-  Image, 
   TextInput,
-  Modal, 
   TouchableOpacity, 
   Alert,
-  ScrollView,
   SafeAreaView,
   FlatList,
-  
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
-import { Fontisto } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
@@ -23,26 +17,22 @@ import TarjetaSelec from "../components/TarjetaSelec";
 import { styles } from '../styles/Styles'
 
 
-
-
-
 export class Screen_ViewImportedCards extends Component {
   constructor() {
       super();
       this.state = {
-          importedUsers: [],
-          showModal: false,
-          itemModal: null,
-          usuariosABorrar: [],
-          search: '',
-          color: 'wheat',
-          comentario: []  
+        importedUsers: [],
+        showModal: false,
+        itemModal: null,
+        usuariosABorrar: [],
+        search: '',
+        color: 'wheat',
+        comentario: []  
       }
       this.borrarTarjetas = this.borrarTarjetas.bind(this)
-      // this.showModal = this.showModal.bind(this)
   }
 
-
+// Borrar memoria del Storage
 /*   
  async componentDidMount (){
     await AsyncStorage.removeItem('Users')
@@ -64,8 +54,8 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
-  //Ultimos cambios que hice
-  //Orden ascendente y descendente
+
+// Botones para ordenar ascendente y descendente
   az = () => {
     this.state.importedUsers.sort((a, b) => a.name.first.localeCompare(b.name.first))
     this.setState({importedUsers: this.state.importedUsers.sort(function(a, b) { return a.name.first > b.name.first})})
@@ -76,7 +66,7 @@ export class Screen_ViewImportedCards extends Component {
     this.setState({importedUsers: this.state.importedUsers.sort(function(a, b) { return a.name.first < b.name.first})})
   }
 
-  //  buscador
+// Filtro para buscar por nombre, apellido y edad
   filter(text){
     if (text.length > 0) {
       const resultadoBusqueda = this.state.importedUsers
@@ -99,6 +89,7 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
+  // Boton para poder aplicar el filtro
   updateSearch = (text) => {
     const resultadoBusqueda = this.state.importedUsers
     const filtrado = resultadoBusqueda.filter((item) =>{
@@ -112,19 +103,12 @@ export class Screen_ViewImportedCards extends Component {
     })
   };
 
-  // borrarTarjeta = (idTarjeta)=>{
-  //   let resultado = this.state.importedUsers.filter( (item)=> {
-  
-  //       return item.login.uuid !== idTarjeta;
-  //   })
-  //   this.setState({importedUsers: resultado});
-  // }
-
+// Ocultar tarjetas importadas
   borrarCompleto = ()=> {
     this.setState({importedUsers: []})
   }
 
-//Borrar tarjetas:
+//Borrar tarjetas importadas y mandarlas a papelera de reciclaje
 async borrarTarjetas(usuariosABorrar){
   try{
       let storage =  await AsyncStorage.getItem("Users");
@@ -154,6 +138,7 @@ async borrarTarjetas(usuariosABorrar){
   }
 }
 
+// Agregar comentarios a las tarjetas
 async comentarioAAgregar(importedUsers){
   try{
       let storage =  await AsyncStorage.getItem("Users");
@@ -183,6 +168,7 @@ async comentarioAAgregar(importedUsers){
   }
 }
 
+// Tarjetas borradas desaparezcan del screen ViewImported
 updateBorradas(item){
   let aBorrar = this.state.usuariosABorrar
   aBorrar.push(item)
@@ -192,113 +178,76 @@ updateBorradas(item){
 
 
 
-  render(){
-    const { search } = this.state;
-    const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
+render(){
+   const { search } = this.state;
+   const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
 
-    
-    // const values = this.state.importedUsers.map(item =>
-            
-      // <TouchableOpacity style={styles.tarjetas} 
-      // style={{
-      //   backgroundColor: this.state.color,  
-      //   margin: 5,
-      //   borderRadius: 20,
-      //   justifyContent:'center',
-      //   alignContent:'center',
-      //   alignItems:'center'}}
-      //   key={id} 
-      //   onPress= { () => this.showModal(item)} >
-      //   <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-      //   <Image style={styles.image} source={{uri: img}}/>
-      //   <View style={styles.nombres}>
-      //   <Text style={styles.text}> {firstName} </Text>
-      //   <Text style={styles.text}> {lastName} </Text>
-      //   </View>
-      //   <View style={styles.datos}>
-      //     <Text style={styles.texto}> {Email} </Text>
-      //     <Text style={styles.texto}> {Date} ({Birthday})</Text>
-      //   </View>
-      // </TouchableOpacity>
-              
-        // )
-    return(
-      <SafeAreaView style={{flex:1}}>
-        <View style= {styles.top}>
-          <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
-              <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
-          </TouchableOpacity>
-          {/* Buscador */}
-          <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}), this.filter(text), this.updateSearch.bind(this) }} value={search}  />
-          <TouchableOpacity onPress={this.getData.bind(this)}>
-            <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/><Text> Resetear busqueda</Text>
-          </TouchableOpacity>
-        </View>
-        <View style= {styles.topMed}>
-            <TouchableOpacity onPress={this.az.bind(this)}>
-                <Text > <MaterialCommunityIcons name="sort-alphabetical-ascending" size={24} color="black" />Orden Ascendente</Text>
-            </TouchableOpacity> 
-            <TouchableOpacity onPress={this.za.bind(this)}>
-                <Text> <MaterialCommunityIcons name="sort-alphabetical-descending" size={24} color="black" />Orden Descendente</Text>
-            </TouchableOpacity>
-        </View>
-        <View style= {styles.topMed}>
-          <TouchableOpacity onPress={this.borrarTarjetas}>
-            <View ><Text> <AntDesign name="deleteusergroup" size={24} color="black" />Borrar tarjetas</Text></View>
-          </TouchableOpacity>
-         
-          <TouchableOpacity>
-            <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}> <MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
-          </TouchableOpacity>
-        </View>
-        {/* {values} */}
-        
-          
-          <FlatList style={styles.flat}
-          data={this.state.importedUsers}
-          keyExtractor={ (item, idx) => idx.toString()}
-          
-          
-          renderItem={ ({item}) =>
-          (
-           
+  return(
+    <SafeAreaView style={{flex:1}}>
+      <View style= {styles.top}>
+        <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
+          <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
+        </TouchableOpacity>
+        <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}), this.filter(text), this.updateSearch.bind(this) }} value={search}  />
+        <TouchableOpacity onPress={this.getData.bind(this)}>
+          <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/>
+            <Text> Resetear busqueda</Text>
+        </TouchableOpacity>
+      </View>
 
-            <TarjetaSelec
-            updateBorradas = {this.updateBorradas.bind(this, item)}
-            // showModal = {this.showModal.bind(this, item)}
-            // visible = {this.state.showModal}
-            img={img}
-            firstName={firstName}
-            lastName={lastName}
-            Email={Email}
-            city={city}
-            State={Street}
-            StreetNumber={StreetNumber}
-            Telephone={Telephone}
-            Country={Country}
-            Bithday={Bithday}
-            Registered={Registered} 
-            Date={Date}
-            id={id}
-            data = {item}
-            >
-           </TarjetaSelec>
-           
-            )
-          }
-          />
-         
-        
-                <TouchableOpacity onPress={this.getData.bind(this)}>
-                  <View style={styles.botonInicial}><Text style={styles.textBoton}>Importar Datos</Text></View>
-                </TouchableOpacity>
-        
+      <View style= {styles.topMed}>
+        <TouchableOpacity onPress={this.az.bind(this)}>
+          <Text ><MaterialCommunityIcons name="sort-alphabetical-ascending" size={24} color="black" />Orden Ascendente</Text>
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={this.za.bind(this)}>
+          <Text><MaterialCommunityIcons name="sort-alphabetical-descending" size={24} color="black" />Orden Descendente</Text>
+        </TouchableOpacity>
+      </View>
 
-      </SafeAreaView>
-    )
+      <View style= {styles.topMed}>
+        <TouchableOpacity onPress={this.borrarTarjetas}>
+          <View>
+            <Text><AntDesign name="deleteusergroup" size={24} color="black" />Borrar tarjetas</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text onPress={this.borrarCompleto} style={styles.borrarCompleto}><MaterialCommunityIcons name="close-box-multiple" size={21} color="black" />Cerrar tarjetas importadas</Text>
+        </TouchableOpacity>
+      </View>
 
-  }
-    
+      <FlatList style={styles.flat}
+        data={this.state.importedUsers}
+        keyExtractor={ (item, idx) => idx.toString()}
+        renderItem={ ({item}) =>
+        (
+        <TarjetaSelec
+          updateBorradas = {this.updateBorradas.bind(this, item)}
+          img={img}
+          firstName={firstName}
+          lastName={lastName}
+          Email={Email}
+          city={city}
+          State={Street}
+          StreetNumber={StreetNumber}
+          Telephone={Telephone}
+          Country={Country}
+          Bithday={Bithday}
+          Registered={Registered} 
+          Date={Date}
+          id={id}
+          data = {item}
+        > </TarjetaSelec>
+        )
+        }
+      />
+        <TouchableOpacity onPress={this.getData.bind(this)}>
+          <View style={styles.botonInicial}>
+            <Text style={styles.textBoton}>Importar Datos</Text>
+          </View>
+        </TouchableOpacity>
+    </SafeAreaView>
+  )
+}  
 }
 
 // const styles = StyleSheet.create({
@@ -432,7 +381,5 @@ updateBorradas(item){
 //     width: 300,
 //     marginLeft: 20
 //   }
-
-  
 // })
 

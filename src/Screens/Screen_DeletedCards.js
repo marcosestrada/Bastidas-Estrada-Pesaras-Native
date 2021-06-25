@@ -4,17 +4,12 @@ import {
   FlatList, 
   Text, 
   View, 
-  StyleSheet, 
-  Image, 
-  ActivityIndicator, 
-  Button, 
   Modal, 
   TouchableOpacity, 
   Alert,
   ScrollView,
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { styles } from '../styles/Styles';
 import TarjetaBorrar from "../components/TarjetaBorrar";
@@ -31,15 +26,16 @@ export class Screen_DeletedCards extends Component {
           display: 'none',
           showModal: false,
           color: 'wheat',
-          usuariosARecuperar: [],
-         
+          usuariosARecuperar: [], 
       }
   }
 
+  // Metodo para mostrar modal
   showModal(item) {
     this.setState({itemModal: item, showModal: !this.state.showModal})
   }
   
+  // GetData para traer las tarjetas que se seleccionan para borrar dentro de ViewImported
   async getData() {
     try{
         const resultado = await AsyncStorage.getItem("Papelera");
@@ -47,37 +43,12 @@ export class Screen_DeletedCards extends Component {
           Alert.alert("No hay usuarios borrados")
         else this.setState({usuariosABorrar: JSON.parse(resultado)});
         return resultado;
-        
     } catch(e){
         console.log("Error: " + e)
     }
   }
 
-
-
-//   async borrarDefinitiva(usuariosABorrar){
-//     try{
-//     let eliminados =  await AsyncStorage.getItem("Papelera");
-//     console.log(usuariosABorrar)
-//     console.log(eliminados)
-            
-//             if (eliminados != null) {
-//              for(let i=0; i<this.state.usuariosABorrar.length; i++){
-
-//                eliminados = eliminados.filter( (item) => {
-//                  return this.state.usuariosABorrar[i].login.uuid !=item.login.uuid
-//                  // return importedUsers != usuariosABorrar
-//                 })
-//               } 
-//               this.setState({usuariosABorrar: eliminados});
-//                //filtro aquellos que selecciono. Filtro aquellos que son distintos a this.state.usuariosABorrar
-//               const jsonUsers = JSON.stringify(eliminados);
-//               await AsyncStorage.setItem("Papelera", jsonUsers);
-//             }
-//   }catch(e){
-//     console.log("Error: " + e)
-// }}
-
+// Borrar tarjeta definitivamente de la papelera de reciclaje
 async borrarDefinitiva(){
   try{
     await AsyncStorage.removeItem('Papelera')
@@ -88,10 +59,10 @@ async borrarDefinitiva(){
   }
   catch(e){
     console.log("Error: " + e)
-}
+  }
 }
 
-
+// Metodo async para poder recueperar las tarjetas de papelera de reciclaje a ViewImported
 async recuperarTarjeta(usuariosABorrar){
   try{
       let storage =  await AsyncStorage.getItem("Papelera");
@@ -99,20 +70,21 @@ async recuperarTarjeta(usuariosABorrar){
             if (storage != null) {
              for(let i=0; i<this.state.usuariosARecuperar.length; i++){
 
-               storage = storage.filter( (item) => {
+              storage = storage.filter( (item) => {
                  
-                 return this.state.usuariosARecuperar[i].login.uuid !=item.login.uuid
-                })
-              } 
+              return this.state.usuariosARecuperar[i].login.uuid !=item.login.uuid
+              })
+            } 
               this.setState({usuariosABorrar: storage});
               const jsonUsers = JSON.stringify(storage);
               await AsyncStorage.setItem("Papelera", jsonUsers);
             }
       let recuperadas =  await AsyncStorage.getItem("Users");
       recuperadas = JSON.parse(recuperadas)
+      
       if (recuperadas == null) recuperadas = []
       this.state.usuariosARecuperar.map(usuario => {
-          recuperadas.push(usuario)
+        recuperadas.push(usuario)
       })
       const jsonUsers = JSON.stringify(recuperadas);
       await AsyncStorage.setItem("Users", jsonUsers);
@@ -121,148 +93,122 @@ async recuperarTarjeta(usuariosABorrar){
   }
 }
 
+// Una vez seleccionadas las de recuperar se van de la papelera de reciclaje y no se muestran mas
 updateRecuperar(item){
   let aRecuperar = this.state.usuariosARecuperar
   aRecuperar.push(item)
   this.setState({usuariosARecuperar: aRecuperar})
-  
 }
 
 
   render(){
-    const { img, firstName, lastName,Email,city,Street,StreetNumber,Telephone, Country, Bithday,Registered, Date,id} = this.props;
-    // const values = this.state.usuariosABorrar.map(item =>
-            
-    //   <TouchableOpacity style={styles.tarjetas} key={item.login.uuid} onPress= { () => this.showModal(item)} >
-    //     <Fontisto style={styles.closeButton} name="trash" onPress={() => this.updateBorradas(item)}/>
-    //     <Image style={styles.image} source={{uri: item.picture.thumbnail}}/>
-    //     <Text style={styles.text}> {item.name.first} </Text>
-    //     <Text style={styles.text}> {item.name.last} </Text>
-    //     <Text style={styles.text}> {item.email} </Text>
-    //     <Text style={styles.text}> {item.dob.date} ({item.dob.age})</Text>
-    //   </TouchableOpacity>
-     
-/*     <TouchableOpacity style={styles.tarjetas} 
-      style={{
-        backgroundColor: this.state.color,  
-        margin: 5,
-        borderRadius: 20,
-        justifyContent:'center',
-        alignContent:'center',
-        alignItems:'center'}}
-        key={item.login.uuid} 
-        onPress= { () => this.showModal(item)} >
-        <Image style={styles.image} source={{uri: item.picture.large}}/>
-        <View style={styles.nombres}>
-        <Text style={styles.text}> {item.name.first} </Text>
-        <Text style={styles.text}> {item.name.last} </Text>
-        </View>
-        <View style={styles.datos}>
-          <Text style={styles.texto}> {item.email} </Text>
-          <Text style={styles.texto}> {item.dob.date.substring(0,10)} ({item.dob.age})</Text>
-        </View>
-        <TouchableOpacity onPress={() => this.updateRecuperar(item)}>
-          <Text>Recuperar Contacto</Text>
-          <MaterialCommunityIcons name="file-restore" size={24} color="black" />
-        </TouchableOpacity>
-      </TouchableOpacity> */
-        // )
+    const { img, firstName, lastName, Email, city, Street, StreetNumber, Telephone, Country, Bithday, Registered, Date, id} = this.props;
+
     return(
-      <View  style= {styles.bigPoppa} >
+    <View  style= {styles.bigPoppa} >
+
         <View style= {styles.top}>
           <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
-              <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
+            <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
           </TouchableOpacity>
           <View style= {styles.contenedorTitulo} >
             <Text style= {styles.tituloDelete}>Papelera</Text>
             <Fontisto style={{fontSize: 20 }} name="trash" />
           </View>
-        
-        
-        
-        
         </View>
        
-        <ScrollView>
-
-        <FlatList style={styles.flat}
-          data={this.state.usuariosABorrar}
-          keyExtractor={ (item, idx) => idx.toString()}
-          
-          
-          renderItem={ ({item}) =>
-          (
+      <ScrollView>
+          <FlatList style={styles.flat}
+            data={this.state.usuariosABorrar}
+            keyExtractor={ (item, idx) => idx.toString()}
+            renderItem={ ({item}) =>
+            (
+            
             <TarjetaBorrar
-            updateRecuperar = {this.updateRecuperar.bind(this)}
-            showModal = {this.showModal.bind(this)}
-            img={img}
-            firstName={firstName}
-             lastName={lastName}
-             Email={Email}
-             city={city}
-             State={Street}
-             StreetNumber={StreetNumber}
-             Telephone={Telephone}
-             Country={Country}
-             Bithday={Bithday}
-             Registered={Registered} 
-             Date={Date}
-             id={id} 
-             data = {item}
-          >
-          </TarjetaBorrar>
+              updateRecuperar = {this.updateRecuperar.bind(this)}
+              showModal = {this.showModal.bind(this)}
+              img={img}
+              firstName={firstName}
+              lastName={lastName}
+              Email={Email}
+              city={city}
+              State={Street}
+              StreetNumber={StreetNumber}
+              Telephone={Telephone}
+              Country={Country}
+              Bithday={Bithday}
+              Registered={Registered} 
+              Date={Date}
+              id={id} 
+              data = {item}
+            >
+            </TarjetaBorrar>
             )
-          }
+            }
           />
 
         <Modal visible={this.state.showModal}
-                animationType="slide"
-                transparent={true}>
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modal}>
-                            { this.state.itemModal
-                            ?
-                            <>
-                            <Text style={styles.textModal}><Text style={{fontWeight: "bold"}}>Dirección:</Text>{' '}{
-                            this.state.itemModal.location.street.number}, {this.state.itemModal.location.street.name}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Ciudad:</Text>{' '}{
-                            this.state.itemModal.location.city}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Estado:</Text>{' '} {
-                            this.state.itemModal.location.state}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>País:</Text>{' '} {
-                            this.state.itemModal.location.country}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Código postal:</Text>{' '} {
-                            this.state.itemModal.location.postcode}</Text> 
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Fecha de registro:</Text>{' '} {
-                            this.state.itemModal.registered.date}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Telefono:</Text>{' '} {
-                            this.state.itemModal.cell}</Text>
-                            <Text style={styles.textModal}> <Text style={{fontWeight: "bold"}}>Info. Adicional:</Text>{' '} (aca iria lo que la gente edita de la tarjeta, en la parte de editar) </Text>
-                            <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}>X</Text>
-                            </>
-                            :<Text>Nothing to show.</Text>
-                            }
-                        </View>
-                    </View>
-                </Modal>
-        </ScrollView>
-        <View style={styles.contenedorBoton}>
-        <TouchableOpacity style={styles.botonInicial} onPress={this.borrarDefinitiva.bind(this)} >
-          <Text style={styles.textBoton}>LimpiarPapelera</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
-          <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.botonInicial} onPress={this.recuperarTarjeta.bind(this)}>
-          <Text style={styles.textBoton}>Recuperar Tarjetas Seleccionadas</Text>
-        </TouchableOpacity>
+               animationType="slide"
+               transparent={true}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modal}>
+            { this.state.itemModal
+            ? <>
+              <Text style={styles.textModal}>
+                <Text style={{fontWeight: "bold"}}>Dirección:</Text>
+                {' '}{this.state.itemModal.location.street.number}, {this.state.itemModal.location.street.name}
+              </Text>
+              <Text style={styles.textModal}> 
+                <Text style={{fontWeight: "bold"}}>Ciudad:</Text>
+                {' '}{this.state.itemModal.location.city}
+              </Text>
+              <Text style={styles.textModal}> 
+                <Text style={{fontWeight: "bold"}}>Estado:</Text>
+                {' '} {this.state.itemModal.location.state}
+              </Text>
+              <Text style={styles.textModal}> 
+                <Text style={{fontWeight: "bold"}}>País:</Text>
+                {' '} {this.state.itemModal.location.country}
+              </Text>
+              <Text style={styles.textModal}> 
+                <Text style={{fontWeight: "bold"}}>Código postal:</Text>
+                {' '} {this.state.itemModal.location.postcode}
+              </Text> 
+              <Text style={styles.textModal}> 
+                <Text style={{fontWeight: "bold"}}>Fecha de registro:</Text>
+                {' '} {this.state.itemModal.registered.date}
+              </Text>
+              <Text style={styles.textModal}>   
+                <Text style={{fontWeight: "bold"}}>Telefono:</Text>
+                {' '} {this.state.itemModal.cell}
+              </Text>
+            <Text style={styles.textModal}> 
+              <Text style={{fontWeight: "bold"}}>Info. Adicional:</Text>
+              {' '}
+            </Text>
+            <Text style={styles.closeButton} onPress={() => this.setState({showModal:false})}> X </Text>
+            </>
+            :<Text>Nothing to show.</Text>
+            }
+            </View>
           </View>
+        </Modal>
+      </ScrollView>
 
-      </View>
+        <View style={styles.contenedorBoton}>
+          <TouchableOpacity style={styles.botonInicial} onPress={this.borrarDefinitiva.bind(this)} >
+            <Text style={styles.textBoton}>LimpiarPapelera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
+            <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.botonInicial} onPress={this.recuperarTarjeta.bind(this)}>
+            <Text style={styles.textBoton}>Recuperar Tarjetas Seleccionadas</Text>
+          </TouchableOpacity>
+        </View>
+    </View>
     )
-
-  }
-    
+} 
 }
 
 // const styles = StyleSheet.create({
@@ -471,7 +417,4 @@ updateRecuperar(item){
 //     justifyContent:'center',
 //     alignItems: 'center'
 // },
-
-
-
 // })
