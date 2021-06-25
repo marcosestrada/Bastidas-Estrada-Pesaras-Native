@@ -89,20 +89,6 @@ export class Screen_ViewImportedCards extends Component {
     }
   }
 
-  // Boton para poder aplicar el filtro
-  updateSearch = (text) => {
-    const resultadoBusqueda = this.state.importedUsers
-    const filtrado = resultadoBusqueda.filter((item) =>{
-    const itemData = item.name.first.toUpperCase();
-    const lastName = item.name.last.toUpperCase();
-    const age = item.dob.age.toString();
-    const textData = this.state.search.toUpperCase();
-    return (
-      itemData.includes(textData) || lastName.includes(textData) || age.includes(textData)
-    )
-    })
-  };
-
 // Ocultar tarjetas importadas
   borrarCompleto = ()=> {
     this.setState({importedUsers: []})
@@ -188,7 +174,7 @@ render(){
         <TouchableOpacity style= {styles.menu} opacity={0.8} onPress={() => this.props.navigation.navigate("Screen_Menu")}>
           <Text><Entypo name="home" size={24} color="black" /> Menu</Text>
         </TouchableOpacity>
-        <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}), this.filter(text), this.updateSearch.bind(this) }} value={search}  />
+        <TextInput style={styles.Buscador} placeholder="Buscar en contactos..." onChangeText={text => {this.setState({search: text}), this.filter(text)}} value={search}  />
         <TouchableOpacity onPress={this.getData.bind(this)}>
           <Ionicons name="ios-reload-circle-sharp" size={24} color="black" style={styles.ResetIcon}/>
             <Text> Resetear busqueda</Text>
@@ -217,11 +203,11 @@ render(){
 
       <FlatList style={styles.flat}
         data={this.state.importedUsers}
-        keyExtractor={ (item, idx) => idx.toString()}
-        renderItem={ ({item}) =>
+        keyExtractor={ (item, idx) => idx.toString()} /* id unico para cada tarjeta */
+        renderItem={ ({item}) => /* A traves del renderItem es como vemos las tarjetas */
         (
         <TarjetaSelec
-          updateBorradas = {this.updateBorradas.bind(this, item)}
+          updateBorradas = {this.updateBorradas.bind(this, item)} 
           img={img}
           firstName={firstName}
           lastName={lastName}
@@ -250,136 +236,4 @@ render(){
 }  
 }
 
-// const styles = StyleSheet.create({
-//   nombres:{
-//     flexDirection: "row",
-//   },
-//   top:{
-//     backgroundColor: 'wheat',
-//     borderRadius: 20,
-//     flexDirection: 'row',
-//     margin: 5,
-//     alignItems: 'center',
-//   },
-//   topMed:{
-//     backgroundColor: 'wheat',
-//     borderRadius: 10,
-//     flexDirection: 'row',
-//     margin: 5,
-//     alignItems: 'center',
-//     padding: 5,
-//     justifyContent: 'space-between',
-//     flexDirection:'row'
-//   },
-//   Buscador:{
-//     marginLeft: 5,
-//     borderColor: "black",
-//     borderWidth: 1,
-//     height: 40,
-//     width: 200
-//   },
-//   closeButton:{
-//       fontSize: 30,
-//       position: "absolute",
-//       right: 20,
-//       top:10, 
-//       color: 'red',     
-//   },
-//   textModal: {
-//       fontSize: 20,
-//   },
-//   modalContainer: {       
-//       flex:1,
-//       justifyContent: "center",
-//       alignItems: "center",
-//       backgroundColor: "rgba(0,0,0,0.3)"
-//   },
-//   modal: {
-//       padding: 20,
-//       width: "100%",
-//       height: "70%",
-//       justifyContent: "flex-start",
-//       alignItems: "flex-start",
-//       backgroundColor: "wheat",
-//       borderRadius: 20,
-//       shadowColor: "black",
-//       borderStyle: "solid",
-//       borderWidth: 2,
-//       borderColor: "grey",
-//       elevation: 10
-//   },
-//   menu: {
-//     borderRightWidth: 1,
-//     borderRightColor: 'black',
-//     marginBottom: 10,
-//     marginTop: 10,
-//     paddingRight: 5,
-//     height: 35
-//   },
-//   text: {
-//       fontSize: 20
-//   },
-//   separator:{
-//       borderBottomColor: "black",
-//       borderBottomWidth: 1
-//   },
-//   image: {
-//       width: 70,
-//       height: 70,
-//       borderRadius: 50,
-//       borderWidth: 2,
-//       borderColor: 'black',
-//       margin: 5
-//   },
-//   footer:{
-//       height: '10%',
-//       width: '100%',
-//       backgroundColor:"blue",
-//       justifyContent:'center',
-//       alignItems: 'center'
-//   },
-//   borrarCompleto:{
-//     marginLeft: 3,
-    
-//   },
-// /*   tarjetas: {
-//     backgroundColor: 'wheat',
-//     margin: 5,
-//     borderRadius: 20,
-//     justifyContent:'center',
-//     alignContent:'center',
-//     alignItems:'center'
-//   }, */
-//   botonInicial: {
-//     marginLeft: 150,
-//     marginTop: 20,
-//     width:105,
-//     height:40,
-//     backgroundColor:"#EDBB99",
-//     borderRadius:40
-//   },
-//   textBoton:{
-//     marginLeft:4,
-//     marginTop: 8
-//   },
-//   botonBorrarSelec:{
-//     marginLeft: 150,
-//     marginTop: 150,
-//     width:105,
-//     height:40,
-//     backgroundColor:"#EDBB99",
-//     borderRadius:40
-//   },
-//   ResetIcon:{
-//     marginLeft: 60
-//   },
-//   Input:{
-//     borderWidth: 1,
-//     borderColor: "black",
-//     padding: 8,
-//     margin: 10,
-//     width: 300,
-//     marginLeft: 20
-//   }
-// })
 
