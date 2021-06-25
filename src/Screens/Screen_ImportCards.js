@@ -40,6 +40,9 @@ addContact(){
         this.setState({display:'flex'})
         this.setState({titulo:'Tarjetas importadas'})        
     })
+    .catch((error) => {
+        console.error("Error: " + error)
+    })
 }
 
 // Funcion ASYNC para guardar los datos dentro del array Users
@@ -70,13 +73,7 @@ updateImports(item){
     this.setState({usuariosAImport:aImportar})
 }
     
-    /*  CambiarColor=(nuevoColor)=>{
-
-        this.setState({colorTarjeta: nuevoColor});
-        console.log('queriendo cambiar colors');
-        console.log(this.state.colorTarjeta);
-     } */
-    
+ 
 // Funcion que sirve para que una vez que importas la cantidad de tarjetas deseadas se vayan de la screen ImportCards
 removeItem(item){
     let aBorrar = this.state.usuariosAImport
