@@ -338,14 +338,47 @@ Input:{
 },
 
 // CSS DELETED_CARDS
+botonesLimpiar:{
+  backgroundColor: '#bf3b3b',
+  width: 105,
+  borderRadius: 20,
+  justifyContent: 'center',
+  alignContent: 'center',
+  alignItems: 'center',
+ },
+
+ botonesVer:{
+  backgroundColor: '#bf8a3b',
+  width: 105,
+  borderRadius: 20,
+  justifyContent: 'center',
+  alignContent: 'center',
+  alignItems: 'center',
+ },
+
+ botonesRecuperar:{
+  backgroundColor: '#3b8cbf',
+  width: 110,
+  borderRadius: 20,
+  justifyContent: 'center',
+  alignContent: 'center',
+  alignItems: 'center',
+ },
+
+ textBotonBorrar:{
+   color: 'white',
+   fontWeight:'bold',
+   justifyContent: 'center',
+  alignContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center'
+ },
+
 bigPoppa:{
   justifyContent: 'center',
 
 },
-contenedorBoton:{
-  width: '100%',
-  alignItems: 'center'
-},
+
 tituloDelete:{
   fontSize: 20,
   marginRight: 10

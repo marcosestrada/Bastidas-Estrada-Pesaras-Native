@@ -28,15 +28,17 @@ class TarjetaSelec extends Component {
             handler: []  
         }
     }
-
+    cambiarColor(){
+      this.setState ({colorTarjeta: '#d95750'})
+   }
   render(){
       const {itemModal} = this.props  
       const { comentario} = this.state;
 
     return(
-      <TouchableOpacity style={styles.tarjetas} 
+      <TouchableOpacity /* style={styles.tarjetas} */ 
         style={{
-        backgroundColor: this.state.color,  
+        backgroundColor: this.state.colorTarjeta,  
         margin: 5,
         borderRadius: 20,
         justifyContent:'center',
@@ -45,7 +47,7 @@ class TarjetaSelec extends Component {
         onPress= {() => this.setState({showModal: true})}>
 
         <View>
-          <Fontisto style={styles.closeButton} name="trash" onPress={() => this.props.updateBorradas(this.props.data)}/>
+          <Fontisto style={styles.closeButton} name="trash" onPress={() => {this.props.updateBorradas(this.props.data); this.cambiarColor()}} />
           <Image style={styles.image} source={{uri: this.props.data.picture.large}}/>
           
           <View style={styles.nombres}>

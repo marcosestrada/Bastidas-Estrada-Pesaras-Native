@@ -8,6 +8,9 @@ import {
   TouchableOpacity, 
   Alert,
   ScrollView,
+  SafeAreaView,
+  Animated,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
@@ -136,7 +139,7 @@ updateRecuperar(item){
               StreetNumber={StreetNumber}
               Telephone={Telephone}
               Country={Country}
-              Bithday={Bithday}
+              Bithday={Bithday }
               Registered={Registered} 
               Date={Date}
               id={id} 
@@ -147,7 +150,7 @@ updateRecuperar(item){
             }
           />
 
-        <Modal visible={this.state.showModal}
+        {/* <Modal visible={this.state.showModal}
                animationType="slide"
                transparent={true}>
           <View style={styles.modalContainer}>
@@ -192,20 +195,21 @@ updateRecuperar(item){
             }
             </View>
           </View>
-        </Modal>
-      </ScrollView>
-
-        <View style={styles.contenedorBoton}>
-          <TouchableOpacity style={styles.botonInicial} onPress={this.borrarDefinitiva.bind(this)} >
-            <Text style={styles.textBoton}>LimpiarPapelera</Text>
+        </Modal> */}
+        <View style={{flexDirection:'row', width:'100%', justifyContent: 'space-evenly',marginBottom:70, marginTop: 10 }}>
+          <TouchableOpacity style={styles.botonesLimpiar} onPress={this.borrarDefinitiva.bind(this)} >
+            <Text style={styles.textBotonBorrar}>Limpiar papelera</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.botonInicial} onPress={this.getData.bind(this)}>
-            <Text style={styles.textBoton}>Ver Tarjetas Borradas</Text>
+          <TouchableOpacity style={styles.botonesVer} onPress={this.getData.bind(this)}>
+            <Text style={styles.textBotonBorrar}>Ver Tarjetas Borradas</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.botonInicial} onPress={this.recuperarTarjeta.bind(this)}>
-            <Text style={styles.textBoton}>Recuperar Tarjetas Seleccionadas</Text>
+          <TouchableOpacity style={styles.botonesRecuperar} onPress={this.recuperarTarjeta.bind(this)}>
+            <Text style={styles.textBotonBorrar}>Recuperar Tarjetas Seleccionadas</Text>
           </TouchableOpacity>
         </View>
+      </ScrollView>
+
+     
     </View>
     )
 } 

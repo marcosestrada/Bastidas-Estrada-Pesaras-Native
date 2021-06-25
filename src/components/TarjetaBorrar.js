@@ -3,7 +3,8 @@ import {
   View, 
   Image,
   Text,
-  TouchableOpacity, 
+  TouchableOpacity,
+   
 } from 'react-native'
 import { styles } from '../styles/Styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -30,14 +31,14 @@ render(){
  
       <TouchableOpacity style={styles.tarjetas} 
         style={{
-        backgroundColor: this.state.color,  
+        backgroundColor: this.state.colorTarjeta,  
         margin: 5,
         borderRadius: 20,
         justifyContent:'center',
         alignContent:'center',
         alignItems:'center'}}
         key={this.props.data.login.uuid} 
-        onPress= { () => this.showModal(this.props.data)} >
+         >
         
         <Image style={styles.image} source={{uri: this.props.data.picture.large}}/>
           <View style={styles.nombres}>
@@ -46,11 +47,11 @@ render(){
           </View>
           <View style={styles.datos}>
             <Text style={styles.texto}> {this.props.data.email} </Text>
-            <Text style={styles.texto}> {this.props.data.dob.date} ({this.props.data.dob.age})</Text>
+            <Text style={styles.texto}> {this.props.data.dob.date.substring(0,10)} ({this.props.data.dob.age})</Text>
           </View>
-          <TouchableOpacity onPress={() => this.props.updateRecuperar(this.props.data)}>
-            <Text>Recuperar Contacto</Text>
-            <MaterialCommunityIcons name="file-restore" size={24} color="black" />
+          <TouchableOpacity style={{flexDirection: 'row', backgroundColor:'#4287f5', width: 170, height: 30, borderRadius: 20, justifyContent: 'center', alignItems: 'center', margin: 5}} onPress={() => this.props.updateRecuperar(this.props.data)}>
+            <Text style={{color: 'white', ontWeight:'bold',}}>Recuperar Contacto</Text>
+            <MaterialCommunityIcons name="file-restore" size={24} color="white" />
           </TouchableOpacity>
       </TouchableOpacity>
     )

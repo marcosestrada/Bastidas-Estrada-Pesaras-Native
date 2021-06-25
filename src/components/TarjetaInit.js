@@ -23,7 +23,9 @@ class TarjetaInit extends Component {
             titulo: 'Selecciona la cantidad de tarjetas que quieres importar'
         }
     }
-
+    cambiarColor(){
+        this.setState ({colorTarjeta: '#c7a64c'})
+    }
 render(){ 
     const { img, firstName, lastName,Email, Birthday,Date,id} = this.props;
 
@@ -42,7 +44,7 @@ render(){
                     <Text style={styles.texto}> {Date.substring(0,10)} ({Birthday})</Text>
                 </View>
                 <View style ={styles.acciones}>
-                    <TouchableOpacity style={styles.check}  onPress= {()=> this.props.onSelect(this.props.data)/* () =>  this.updateImports(item) */ /* ,this.CambiarColor.bind(this,'black') */}> 
+                    <TouchableOpacity style={styles.check}  onPress= {()=> this.props.onSelect(this.props.data)/* () =>  this.updateImports(item) */ /* ,this.CambiarColor.bind(this,'black') */}onPressIn= {()=> this.cambiarColor()}> 
                       <Text><Entypo name="check" size={24} color="white" /></Text>
                     </TouchableOpacity>
                 </View>
